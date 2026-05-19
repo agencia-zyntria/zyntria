@@ -133,6 +133,24 @@
   /* CONTACTO */
   .trust-card { border: 1px solid var(--border); border-radius: 22px; background: var(--bg-elev); box-shadow: var(--shadow); padding: 56px 24px; text-align: center; margin-bottom: 50px; }
   .tally-container { width: 100%; max-width: 600px; margin: 0 auto; }
+
+  /* =====================================================================
+     ADAPTACIÓN MÓVIL AÑADIDA: ESTO ORDENA LAS COLUMNAS EN PANTALLAS PEQUEÑAS 
+     ===================================================================== */
+  @media (max-width: 980px) {
+    .pain-grid, .services { grid-template-columns: repeat(2, 1fr); }
+    .method-steps { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .pain-grid, .services, .method-steps { grid-template-columns: 1fr; }
+    .method-wrap, .trust-card { padding: 40px 20px; }
+    .nav { padding: 14px 16px; }
+    .brand-name { font-size: 16px; }
+    .nav-cta { padding: 8px 12px; font-size: 12px; }
+    section { padding: 60px 0; }
+    .hero { padding: 60px 0 40px; }
+  }
 </style>
 </head>
 <body>
@@ -197,9 +215,8 @@
           <p>📞 <strong>Teléfono:</strong> 654 208 056</p>
           <p>✉️ <strong>Email:</strong> zyntriateam@gmail.com</p>
         </div>
-        <iframe data-tally-src="https://tally.so/embed/NpbNJl?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="553" frameborder="0" marginheight="0" marginwidth="0" title="Solicitud de Auditoría - ZYNTRIA"></iframe>
+      <iframe data-tally-src="https://tally.so/embed/NpbNJl?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="553" frameborder="0" marginheight="0" marginwidth="0" title="Solicitud de Auditoría - ZYNTRIA"></iframe>
 <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
-
       </div>
     </section>
   </main>
