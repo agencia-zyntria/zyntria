@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ZYNTRIA — Make everything easy</title>
+<meta name="description" content="ZYNTRIA implementa Agentes de IA y sistemas de automatización que responden a tus leads en 1 segundo, organizan tus datos y trabajan 24/7. Prueba gratuita de 7 días. Si no te ahorra tiempo y dinero, no nos debes nada." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  :root {
+    --bg: #f7faff;
+    --bg-elev: #ffffff;
+    --bg-card: rgba(13,71,161,0.025);
+    --border: rgba(13,71,161,0.10);
+    --border-strong: rgba(13,71,161,0.20);
+    --text: #0a1e3f;
+    --text-dim: #4a5b7a;
+    --text-faint: #94a3b8;
+    --accent: #1e6bff;
+    --accent-2: #3aa9ff;
+    --accent-glow: rgba(30,107,255,0.22);
+    --danger: #dc2626;
+    --grid-line: rgba(13,71,161,0.05);
+    --node-fill: #ffffff;
+    --shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 0 0 1px rgba(13,71,161,0.04), 0 20px 50px -20px rgba(13,71,161,0.18);
+  }
+  [data-theme="dark"] {
+    --bg: #060b18;
+    --bg-elev: #0b1426;
+    --bg-card: rgba(255,255,255,0.025);
+    --border: rgba(125,165,235,0.12);
+    --border-strong: rgba(125,165,235,0.22);
+    --text: #eaf2ff;
+    --text-dim: #94a8c8;
+    --text-faint: #5d7299;
+    --accent: #4d8dff;
+    --accent-2: #5ec2ff;
+    --accent-glow: rgba(77,141,255,0.35);
+    --danger: #ef4444;
+    --grid-line: rgba(125,165,235,0.05);
+    --node-fill: #0b1426;
+    --shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 0 0 1px rgba(125,165,235,0.06), 0 20px 50px -20px rgba(0,0,0,0.6);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    transition: background 0.3s ease, color 0.3s ease;
+    background-image:
+      radial-gradient(900px circle at 15% -5%, var(--accent-glow), transparent 50%),
+      radial-gradient(700px circle at 100% 20%, rgba(45,209,255,0.10), transparent 55%),
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: auto, auto, 48px 48px, 48px 48px;
+    background-attachment: fixed, fixed, fixed, fixed;
+  }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* ===== NAV ===== */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-mark {
+    width: 30px; height: 30px; border-radius: 9px;
+    background: conic-gradient(from 220deg, var(--accent), var(--accent-2), var(--accent));
+    box-shadow: 0 0 24px var(--accent-glow), inset 0 0 0 1px rgba(255,255,255,0.15);
+    position: relative;
+  }
+  .brand-mark::after {
+    content: ""; position: absolute; inset: 7px; border-radius: 4px;
+    background: var(--bg); opacity: 0.55;
+  }
+  .brand-name { font-weight: 700; letter-spacing: 0.02em; font-size: 16px; }
+  .logo-img { display: block; height: 36px; width: auto; }
+  .nav .logo-img { height: 34px; }
+  .footer-brand .logo-img { height: 36px; }
+
+  .nav-links { display: flex; gap: 4px; }
+  .nav-links a {
+    color: var(--text-dim); text-decoration: none; font-size: 14px; font-weight: 500;
+    padding: 8px 14px; border-radius: 8px; transition: all 0.15s ease;
+  }
+  .nav-links a:hover { color: var(--text); background: var(--bg-card); }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .theme-toggle {
+    display: inline-flex; padding: 4px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 999px; gap: 4px;
+  }
+  .theme-toggle button {
+    background: transparent; border: 0; color: var(--text-faint); padding: 6px 10px; border-radius: 999px;
+    font-size: 12px; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; gap: 6px;
+    transition: all 0.18s ease;
+  }
+  .theme-toggle button.on { background: var(--text); color: var(--bg); }
+  .nav-cta {
+    padding: 9px 16px; border-radius: 10px; font-size: 13.5px; font-weight: 600;
+    background: var(--text); color: var(--bg); border: 0; cursor: pointer; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: transform 0.15s ease;
+  }
+  .nav-cta:hover { transform: translateY(-1px); }
+  @media (max-width: 880px) { .nav-links { display: none; } }
+
+  /* ===== CONTAINERS ===== */
+  main { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+  section { padding: 100px 0; position: relative; }
+  section + section { border-top: 1px solid var(--border); }
+
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+    color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .section-tag::before {
+    content: ""; width: 6px; height: 6px; border-radius: 999px;
+    background: var(--accent); box-shadow: 0 0 8px var(--accent);
+  }
+  .section-title {
+    font-size: clamp(30px, 3.8vw, 48px);
+    letter-spacing: -0.03em; font-weight: 700; line-height: 1.1;
+    margin-bottom: 16px; max-width: 800px;
+  }
+  .section-lead {
+    color: var(--text-dim); font-size: 17px; line-height: 1.6; max-width: 680px;
+  }
+  .section-head-flex {
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: 56px;
+  }
+  @media (max-width: 760px) { .section-head-flex { flex-direction: column; align-items: flex-start; } }
+
+  /* ===== HERO ===== */
+  .hero { padding: 100px 0 80px; text-align: center; }
+  .hero-logo-img {
+    max-width: min(340px, 70%); width: 100%; height: auto;
+    display: block; margin: 0 auto 36px;
+    filter: drop-shadow(0 18px 60px var(--accent-glow));
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 6px 14px 6px 6px; border-radius: 999px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--text-dim);
+    margin-bottom: 32px;
+  }
+  .hero-eyebrow .dot {
+    width: 18px; height: 18px; border-radius: 999px;
+    background: conic-gradient(from 220deg, var(--accent), var(--accent-2));
+    box-shadow: 0 0 12px var(--accent-glow);
+  }
+  .hero h1 {
+    font-size: clamp(42px, 6vw, 84px);
+    line-height: 1.02; letter-spacing: -0.04em; font-weight: 800;
+    max-width: 1000px; margin: 0 auto 28px;
+  }
+  .hero h1 .grad {
+    background: linear-gradient(110deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero .lead {
+    color: var(--text-dim); font-size: clamp(17px, 1.6vw, 21px); line-height: 1.55;
+    max-width: 760px; margin: 0 auto 42px;
+  }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-bottom: 28px; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 26px; border-radius: 12px;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 90%, white), var(--accent));
+    color: white; font-weight: 600; font-size: 15px; border: 0; cursor: pointer; text-decoration: none;
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 70%, white), 0 16px 32px -10px var(--accent-glow);
+    transition: all 0.18s ease;
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 70%, white), 0 22px 40px -10px var(--accent-glow); }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 26px; border-radius: 12px;
+    background: var(--bg-card); color: var(--text); font-weight: 500; font-size: 15px;
+    border: 1px solid var(--border-strong); cursor: pointer; text-decoration: none;
+    transition: all 0.18s ease;
+  }
+  .btn-ghost:hover { border-color: var(--text); }
+  .btn-xl {
+    padding: 22px 40px; font-size: 17px; border-radius: 14px;
+  }
+  .hero-meta {
+    display: inline-flex; gap: 26px; align-items: center; flex-wrap: wrap; justify-content: center;
+    color: var(--text-faint); font-size: 12.5px; font-family: 'JetBrains Mono', monospace;
+  }
+  .hero-meta .check { color: var(--accent); }
+
+  /* ===== DEMO (laptop mockup) ===== */
+  .demo-head { text-align: center; margin-bottom: 48px; }
+  .demo-head .section-tag { justify-content: center; }
+  .demo-head h2 { font-size: clamp(28px, 3.4vw, 44px); letter-spacing: -0.03em; font-weight: 700; line-height: 1.1; max-width: 720px; margin: 0 auto 16px; }
+  .demo-head h2 .grad { background: linear-gradient(110deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .demo-head p { color: var(--text-dim); font-size: 15.5px; max-width: 560px; margin: 0 auto; }
+  .demo-frame { max-width: 960px; margin: 0 auto; position: relative; }
+  .laptop {
+    background: linear-gradient(180deg, #1a1a1f, #08080a);
+    border-radius: 22px 22px 6px 6px;
+    padding: 24px 18px 14px;
+    border: 1px solid var(--border-strong);
+    box-shadow: 0 50px 100px -30px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04) inset;
+    position: relative;
+  }
+  .laptop::before {
+    content: ""; position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+    width: 6px; height: 6px; border-radius: 999px;
+    background: #1f1f24; box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
+  }
+  .laptop-screen {
+    background: #000; border-radius: 6px; overflow: hidden;
+    aspect-ratio: 16 / 10; position: relative;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .laptop-screen iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .video-placeholder {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+    background:
+      radial-gradient(600px circle at 50% 40%, rgba(124,92,255,0.25), transparent 60%),
+      linear-gradient(180deg, #0a0a14, #050508);
+    color: var(--text);
+    cursor: pointer; transition: background 0.2s ease;
+  }
+  .video-placeholder:hover .play-btn { transform: scale(1.08); }
+  .play-btn {
+    width: 84px; height: 84px; border-radius: 999px;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 92%, white), var(--accent));
+    display: inline-flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 0 4px var(--accent-glow), 0 20px 50px -10px var(--accent-glow);
+    transition: transform 0.2s ease; color: white;
+  }
+  .play-btn svg { width: 32px; height: 32px; margin-left: 4px; }
+  .video-placeholder .vp-text {
+    text-align: center; max-width: 380px;
+  }
+  .video-placeholder .vp-text strong { display: block; font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .video-placeholder .vp-text span { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-dim); }
+  .laptop-base {
+    height: 14px; max-width: 100%; margin: 0 auto;
+    background: linear-gradient(180deg, #2a2a30, #15151a);
+    border-radius: 0 0 22px 22px;
+    position: relative;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5);
+  }
+  .laptop-base::before {
+    content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 110px; height: 5px; border-radius: 0 0 10px 10px;
+    background: #0a0a0c;
+  }
+  .demo-caption {
+    margin-top: 36px; text-align: center;
+    color: var(--text-dim); font-size: 14.5px; line-height: 1.6;
+    max-width: 620px; margin-left: auto; margin-right: auto;
+  }
+  .demo-caption strong { color: var(--text); font-weight: 600; }
+
+  /* ===== DOLOR ===== */
+  .pain-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+  }
+  .pain-card {
+    border: 1px solid var(--border); border-radius: 18px; padding: 32px 28px;
+    background: var(--bg-elev); position: relative; overflow: hidden;
+  }
+  .pain-card::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--danger) 60%, transparent), transparent);
+  }
+  .pain-card .x-ico {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: color-mix(in srgb, var(--danger) 10%, var(--bg-card));
+    border: 1px solid color-mix(in srgb, var(--danger) 30%, var(--border-strong));
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--danger); margin-bottom: 22px;
+  }
+  .pain-card .x-ico svg { width: 22px; height: 22px; }
+  .pain-card h3 { font-size: 19px; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 12px; line-height: 1.25; }
+  .pain-card p { color: var(--text-dim); font-size: 14.5px; line-height: 1.6; }
+  @media (max-width: 880px) { .pain-grid { grid-template-columns: 1fr; } }
+
+  /* ===== SERVICIOS (3 cards) ===== */
+  .services {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+  }
+  .service {
+    background: var(--bg-elev); padding: 38px 30px;
+    border: 1px solid var(--border); border-radius: 20px;
+    cursor: pointer; transition: all 0.2s ease;
+    display: flex; flex-direction: column; min-height: 320px;
+    position: relative; overflow: hidden;
+  }
+  .service::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 60%, transparent), transparent);
+    opacity: 0; transition: opacity 0.2s ease;
+  }
+  .service:hover { border-color: var(--border-strong); transform: translateY(-2px); box-shadow: 0 20px 50px -20px rgba(0,0,0,0.4); }
+  .service:hover::before { opacity: 1; }
+  .service .ico {
+    width: 50px; height: 50px; border-radius: 14px;
+    background: linear-gradient(140deg, color-mix(in srgb, var(--accent) 30%, transparent), color-mix(in srgb, var(--accent-2) 20%, transparent));
+    border: 1px solid var(--border-strong);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+  .service h3 {
+    font-size: 19px; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 12px; line-height: 1.25;
+  }
+  .service p { color: var(--text-dim); font-size: 14.5px; line-height: 1.6; flex: 1; }
+  @media (max-width: 880px) { .services { grid-template-columns: 1fr; } }
+
+  /* ===== MÉTODO / CIERRE ===== */
+  .method-wrap {
+    border: 1px solid var(--border); border-radius: 28px;
+    background: var(--bg-elev); padding: 64px 56px;
+    box-shadow: var(--shadow); position: relative; overflow: hidden;
+  }
+  .method-wrap::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(700px circle at 20% 0%, var(--accent-glow), transparent 55%),
+      radial-gradient(500px circle at 80% 100%, rgba(45,209,255,0.12), transparent 55%);
+    pointer-events: none;
+  }
+  .method-wrap > * { position: relative; }
+  .method-head { text-align: center; margin-bottom: 56px; }
+  .method-head .section-tag { justify-content: center; }
+  .method-head h2 { font-size: clamp(30px, 3.8vw, 48px); letter-spacing: -0.03em; font-weight: 700; line-height: 1.1; max-width: 720px; margin: 0 auto 16px; }
+  .method-head p { color: var(--text-dim); font-size: 16px; max-width: 600px; margin: 0 auto; line-height: 1.55; }
+  .method-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
+    margin-bottom: 56px;
+  }
+  .method-step {
+    border: 1px solid var(--border); border-radius: 16px; padding: 26px 22px;
+    background: color-mix(in srgb, var(--bg) 80%, transparent);
+    position: relative;
+  }
+  .method-step .num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 999px;
+    background: var(--accent); color: white; font-weight: 700; font-size: 13px;
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 15%, transparent), 0 0 18px var(--accent-glow);
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .method-step h4 { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 6px; line-height: 1.3; }
+  .method-step .when { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-faint); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .method-step p { color: var(--text-dim); font-size: 13.5px; line-height: 1.55; }
+  @media (max-width: 980px) { .method-steps { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .method-steps { grid-template-columns: 1fr; } }
+  .method-cta { text-align: center; }
+  .method-cta .guarantee { margin-top: 18px; color: var(--text-dim); font-size: 13px; font-family: 'JetBrains Mono', monospace; }
+  .method-cta .guarantee .check { color: var(--accent); }
+
+  /* ===== TRUST BANNER ===== */
+  .trust-card {
+    border: 1px solid var(--border); border-radius: 22px;
+    background: var(--bg-elev); box-shadow: var(--shadow);
+    padding: 56px; text-align: center; position: relative; overflow: hidden;
+  }
+  .trust-card::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(700px circle at 50% 0%, var(--accent-glow), transparent 60%);
+    pointer-events: none;
+  }
+  .trust-card > * { position: relative; }
+  .trust-inner { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+  .trust-inner h2 { font-size: clamp(26px, 2.8vw, 36px); letter-spacing: -0.03em; font-weight: 700; line-height: 1.15; }
+  .trust-inner h2 .grad { background: linear-gradient(110deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .trust-inner p { color: var(--text-dim); font-size: 15px; max-width: 560px; line-height: 1.55; }
+  .trust-logos {
+    display: flex; align-items: center; gap: 36px; flex-wrap: wrap; justify-content: center;
+    padding-top: 26px; margin-top: 12px; border-top: 1px solid var(--border); width: 100%;
+  }
+  .logo-chip {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-dim); font-weight: 500;
+  }
+  .logo-chip .glyph {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid var(--border-strong); background: var(--bg-card);
+    font-weight: 700;
+  }
+
+  /* ===== FAQ ===== */
+  .faq { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+  .faq-item {
+    border: 1px solid var(--border); border-radius: 14px;
+    background: var(--bg-elev); overflow: hidden;
+    transition: border 0.15s ease;
+  }
+  .faq-item:hover { border-color: var(--border-strong); }
+  .faq-q {
+    padding: 18px 22px; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    font-size: 15.5px; font-weight: 500;
+  }
+  .faq-q svg { transition: transform 0.2s ease; color: var(--text-faint); flex-shrink: 0; }
+  .faq-item.open .faq-q svg { transform: rotate(45deg); color: var(--accent); }
+  .faq-a {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    color: var(--text-dim); font-size: 14px; line-height: 1.65;
+    padding: 0 22px;
+  }
+  .faq-item.open .faq-a { max-height: 360px; padding: 0 22px 20px; }
+
+  /* ===== CONTACT FORM ===== */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; align-items: start; }
+  @media (max-width: 920px) { .contact-grid { grid-template-columns: 1fr; gap: 36px; } }
+  .contact-info h3 { font-size: 26px; letter-spacing: -0.025em; line-height: 1.2; margin-bottom: 16px; font-weight: 600; }
+  .contact-info p { color: var(--text-dim); font-size: 15px; line-height: 1.6; margin-bottom: 30px; }
+  .contact-list { display: flex; flex-direction: column; gap: 18px; }
+  .contact-list-item { display: flex; gap: 14px; align-items: flex-start; }
+  .contact-list-item .ico {
+    width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+    background: var(--bg-card); border: 1px solid var(--border-strong);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--accent);
+  }
+  .contact-list-item .ico svg { width: 17px; height: 17px; }
+  .contact-list-item .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-faint); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px; }
+  .contact-list-item .val { font-size: 14.5px; color: var(--text); }
+  .contact-list-item .val a { color: inherit; text-decoration: none; border-bottom: 1px dotted var(--border-strong); }
+  .contact-list-item .val a:hover { border-color: var(--accent); color: var(--accent); }
+
+  .contact-form {
+    border: 1px solid var(--border); border-radius: 20px;
+    background: var(--bg-elev); padding: 32px;
+    box-shadow: var(--shadow);
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .form-row.full { grid-template-columns: 1fr; }
+  @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+  .form-field label {
+    display: block; font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    color: var(--text-faint); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .form-field input, .form-field select, .form-field textarea {
+    width: 100%; padding: 12px 14px; border-radius: 10px;
+    background: var(--bg); border: 1px solid var(--border);
+    color: var(--text); font-family: inherit; font-size: 14px;
+    transition: border 0.15s ease, box-shadow 0.15s ease;
+  }
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
+    outline: 0; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+  .form-field textarea { min-height: 120px; resize: vertical; line-height: 1.55; }
+  .form-field select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%239b9ba3' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+  .form-submit { width: 100%; padding: 14px; margin-top: 6px; justify-content: center; }
+  .form-foot { font-size: 12px; color: var(--text-faint); margin-top: 14px; text-align: center; line-height: 1.5; }
+  .form-success { display: none; padding: 24px; text-align: center; }
+  .form-success.show { display: block; }
+  .form-success svg { color: var(--accent); margin-bottom: 12px; }
+  .form-success h4 { font-size: 18px; margin-bottom: 8px; }
+  .form-success p { color: var(--text-dim); font-size: 14px; line-height: 1.5; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 56px 28px 40px;
+    margin-top: 80px;
+    max-width: 1280px; margin-left: auto; margin-right: auto;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px;
+  }
+  @media (max-width: 760px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  .footer-brand p { color: var(--text-dim); font-size: 13.5px; line-height: 1.6; margin-top: 14px; max-width: 320px; }
+  .footer-col h5 { font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 16px; font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+  .footer-col a { display: block; color: var(--text-dim); text-decoration: none; font-size: 13.5px; padding: 4px 0; transition: color 0.15s ease; }
+  .footer-col a:hover { color: var(--text); }
+  .footer-bottom {
+    border-top: 1px solid var(--border); padding-top: 22px;
+    display: flex; justify-content: space-between; align-items: center; gap: 20px;
+    color: var(--text-faint); font-size: 12.5px; font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ===== MODO EDICIÓN ===== */
+  .edit-fab {
+    position: fixed; bottom: 22px; right: 22px; z-index: 80;
+    width: 48px; height: 48px; border-radius: 14px;
+    background: var(--bg-elev); border: 1px solid var(--border-strong);
+    color: var(--text-dim); cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    box-shadow: 0 12px 30px -10px rgba(0,0,0,0.5);
+    transition: all 0.18s ease;
+  }
+  .edit-fab:hover { color: var(--text); transform: translateY(-2px); }
+  .edit-fab svg { width: 18px; height: 18px; }
+  body.edit-mode .edit-fab { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-glow); }
+  body.edit-mode [data-edit] { outline: 1px dashed color-mix(in srgb, var(--accent) 60%, transparent); outline-offset: 4px; border-radius: 4px; cursor: pointer; }
+
+  /* ===== EDITOR PANEL ===== */
+  .editor {
+    position: fixed; top: 0; right: 0; width: 420px; max-width: 100vw; height: 100vh;
+    background: var(--bg-elev); border-left: 1px solid var(--border);
+    box-shadow: -30px 0 80px -20px rgba(0,0,0,0.5);
+    transform: translateX(100%); transition: transform 0.3s cubic-bezier(.2,.8,.2,1);
+    z-index: 100; display: flex; flex-direction: column;
+  }
+  .editor.open { transform: translateX(0); }
+  .editor-head {
+    padding: 18px 20px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .editor-head h4 { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
+  .editor-head .sub { font-family: 'JetBrains Mono', monospace; color: var(--text-faint); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+  .editor-close {
+    width: 30px; height: 30px; border-radius: 8px; cursor: pointer;
+    border: 1px solid var(--border); background: transparent; color: var(--text-dim);
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .editor-body { padding: 22px 20px; overflow-y: auto; flex: 1; }
+  .field { margin-bottom: 18px; }
+  .field label {
+    display: block; font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    color: var(--text-faint); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .field input, .field textarea {
+    width: 100%; padding: 11px 13px; border-radius: 10px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    color: var(--text); font-family: inherit; font-size: 13.5px;
+    transition: border 0.15s ease;
+  }
+  .field input:focus, .field textarea:focus { outline: 0; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+  .field textarea { resize: vertical; min-height: 84px; line-height: 1.5; }
+  .editor-foot { padding: 16px 20px; border-top: 1px solid var(--border); display: flex; gap: 8px; }
+  .editor-foot button { flex: 1; padding: 11px 14px; border-radius: 10px; font-family: inherit; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: var(--bg-card); color: var(--text); }
+  .editor-foot .save { background: var(--accent); color: white; border-color: var(--accent); }
+
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translate(-50%, 80px);
+    background: var(--bg-elev); border: 1px solid var(--accent); color: var(--text);
+    padding: 12px 18px; border-radius: 12px; font-size: 13px;
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+    z-index: 200; opacity: 0; transition: all 0.3s cubic-bezier(.2,.8,.2,1);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .toast.show { transform: translate(-50%, 0); opacity: 1; }
+  .toast .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="nav">
+  <a href="#" class="brand" style="text-decoration:none; color:inherit;">
+    <img src="zyntria-logo.png" alt="ZYNTRIA" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+    <div style="display:none; align-items:center; gap:12px;">
+      <div class="brand-mark"></div>
+      <div class="brand-name">ZYNTRIA</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#demo">Demo</a>
+    <a href="#dolor">El problema</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#metodo">Método</a>
+    <a href="#preguntas">Preguntas</a>
+  </div>
+  <div class="nav-right">
+    <div class="theme-toggle">
+      <button id="themeDark" title="Modo oscuro">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+      <button id="themeLight" class="on" title="Modo claro">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+    </div>
+    <a href="#contacto" class="nav-cta">Contáctanos →</a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ===== BLOQUE 1: HERO ===== -->
+  <section class="hero" id="piece-hero">
+    <img src="zyntria-logo.png" alt="ZYNTRIA — Make everything easy" class="hero-logo-img" onerror="this.style.display='none';" />
+    <div class="hero-eyebrow">
+      <span class="dot"></span>
+      <span data-key="hero.eyebrow">Agentes de IA · Automatización · Sistemas a medida</span>
+    </div>
+    <h1 data-key="hero.title">Deja de perder ventas por culpa de la <span class="grad">gestión manual.</span></h1>
+    <p class="lead" data-key="hero.subtitle">Implementamos Agentes de IA y sistemas de automatización que responden a tus leads en 1 segundo, organizan tus datos y trabajan 24/7. Sin que tú muevas un dedo.</p>
+    <div class="hero-cta">
+      <a href="#metodo" class="btn-primary btn-xl" data-key="hero.cta">Solicitar Prueba Gratuita de 7 Días →</a>
+    </div>
+    <div class="hero-meta">
+      <span><span class="check">✓</span> <span data-key="hero.meta1">Sin permanencia</span></span>
+      <span><span class="check">✓</span> <span data-key="hero.meta2">Si no funciona, no nos debes nada</span></span>
+      <span><span class="check">✓</span> <span data-key="hero.meta3">Compatible con tu sistema actual</span></span>
+    </div>
+  </section>
+
+  <!-- ===== BLOQUE 2: DEMO ===== -->
+  <section id="demo">
+    <div class="demo-head">
+      <div class="section-tag">Demo</div>
+      <h2 data-key="demo.title">No te lo contamos. <span class="grad">Míralo en acción.</span></h2>
+      <p data-key="demo.subtitle">Demo de 2 minutos · un sistema real funcionando.</p>
+    </div>
+
+    <div class="demo-frame">
+      <div class="laptop">
+        <div class="laptop-screen">
+          <!-- PARA INSERTAR TU LOOM: descomenta el iframe y pega tu URL embed de Loom -->
+          <!-- <iframe src="https://www.loom.com/embed/TU_ID_AQUI" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> -->
+          <div class="video-placeholder" id="videoPlaceholder">
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div class="vp-text">
+              <strong data-key="demo.placeholder.title">Aquí va tu demo de Loom</strong>
+              <span data-key="demo.placeholder.sub">Pega el código embed en el HTML para activarla</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="laptop-base"></div>
+    </div>
+
+    <p class="demo-caption" data-key="demo.caption">Ejemplo real de <strong>cualificación de leads inmobiliarios</strong> conectado a WhatsApp y CRM. El mismo flujo se adapta a ecommerce, servicios profesionales, agencias y cualquier negocio que viva de captar y atender clientes.</p>
+  </section>
+
+  <!-- ===== BLOQUE 3: DOLOR ===== -->
+  <section id="dolor">
+    <div class="section-head-flex" style="justify-content: center; text-align: center; flex-direction: column; align-items: center;">
+      <div style="text-align: center;">
+        <div class="section-tag" style="justify-content: center;">El problema</div>
+        <h2 class="section-title" data-key="dolor.title" style="text-align: center; margin-left: auto; margin-right: auto;">Tu competencia automatiza. Tú pierdes horas.</h2>
+        <p class="section-lead" data-key="dolor.lead" style="margin: 0 auto;">Si reconoces dos de estos tres puntos, estás dejando ventas sobre la mesa todos los días.</p>
+      </div>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="x-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </div>
+        <h3 data-key="dolor.1.title">Leads fríos</h3>
+        <p data-key="dolor.1.desc">El 80 % de los clientes se va a la competencia si no les respondes en los primeros 5 minutos. Tu equipo está ocupado, ellos no esperan.</p>
+      </div>
+      <div class="pain-card">
+        <div class="x-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </div>
+        <h3 data-key="dolor.2.title">Caos de datos</h3>
+        <p data-key="dolor.2.desc">Copiar y pegar datos de Idealista a una hoja de cálculo provoca errores, duplicados y estrés a tu equipo. Información dispersa, decisiones a ciegas.</p>
+      </div>
+      <div class="pain-card">
+        <div class="x-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </div>
+        <h3 data-key="dolor.3.title">Cuellos de botella</h3>
+        <p data-key="dolor.3.desc">Tus comerciales pierden la mitad del día en tareas administrativas en lugar de estar cerrando ventas. Y el coste de oportunidad ni siquiera aparece en tu cuenta de resultados.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BLOQUE 4: SERVICIOS ===== -->
+  <section id="servicios">
+    <div class="section-head-flex">
+      <div>
+        <div class="section-tag">La solución</div>
+        <h2 class="section-title" data-key="servicios.title">Tu negocio, en piloto automático.</h2>
+      </div>
+      <p class="section-lead" data-key="servicios.lead">Traducimos tecnología (Make, APIs, Python, IA) a tres beneficios de negocio concretos. Puedes contratar cada bloque por separado o combinarlos en un sistema completo.</p>
+    </div>
+    <div class="services">
+      <div class="service" data-edit="service-1">
+        <div class="ico">⚡</div>
+        <h3 data-key="service-1.title">Respuesta Inmediata Omnicanal</h3>
+        <p data-key="service-1.desc">Conectamos tus formularios, correos y web con WhatsApp para atender a tus clientes al instante. Sin esperas, sin lunes a las 10 de la mañana, sin "ya te llamamos".</p>
+      </div>
+      <div class="service" data-edit="service-2">
+        <div class="ico">📊</div>
+        <h3 data-key="service-2.title">Sincronización de CRM</h3>
+        <p data-key="service-2.desc">Los datos viajan solos. De la web, los portales y los formularios a tu base de datos sin errores humanos. Cero copia-pega, cero duplicados, cero estrés.</p>
+      </div>
+      <div class="service" data-edit="service-3">
+        <div class="ico">🤖</div>
+        <h3 data-key="service-3.title">Agentes de IA Especializados</h3>
+        <p data-key="service-3.desc">Chatbots inteligentes que cualifican a tus clientes antes de pasarlos a un humano. Tu comercial solo habla con quien está listo para comprar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BLOQUE 5: MÉTODO / CIERRE ===== -->
+  <section id="metodo">
+    <div class="method-wrap">
+      <div class="method-head">
+        <div class="section-tag">Nuestro método</div>
+        <h2 data-key="metodo.title">Trabajamos a éxito. <span class="grad" style="background: linear-gradient(110deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent;">Pruébalo gratis.</span></h2>
+        <p data-key="metodo.lead">Estamos tan seguros de que nuestra tecnología va a ahorrarte horas de trabajo, que te ofrecemos una prueba de concepto real. Si al cabo de 7 días no notas el impacto, lo desmontamos y no nos debes nada.</p>
+      </div>
+
+      <div class="method-steps">
+        <div class="method-step">
+          <div class="num">01</div>
+          <div class="when" data-key="metodo.1.when">Día 0 · 15 min</div>
+          <h4 data-key="metodo.1.title">Auditoría Express</h4>
+          <p data-key="metodo.1.desc">Vemos qué proceso te está quitando más tiempo y dónde se te escapan los clientes.</p>
+        </div>
+        <div class="method-step">
+          <div class="num">02</div>
+          <div class="when" data-key="metodo.2.when">Día 1</div>
+          <h4 data-key="metodo.2.title">Instalación</h4>
+          <p data-key="metodo.2.desc">Montamos el sistema en tu negocio, conectado a tus herramientas reales.</p>
+        </div>
+        <div class="method-step">
+          <div class="num">03</div>
+          <div class="when" data-key="metodo.3.when">Días 1 al 7</div>
+          <h4 data-key="metodo.3.title">Prueba Real</h4>
+          <p data-key="metodo.3.desc">Disfrutas del sistema funcionando gratis durante toda la semana, con datos reales.</p>
+        </div>
+        <div class="method-step">
+          <div class="num">04</div>
+          <div class="when" data-key="metodo.4.when">Día 7</div>
+          <h4 data-key="metodo.4.title">Tú decides</h4>
+          <p data-key="metodo.4.desc">Si no te ahorra tiempo y dinero, lo quitamos y no nos debes nada. Cero riesgo.</p>
+        </div>
+      </div>
+
+      <div class="method-cta">
+        <a href="#contacto" class="btn-primary btn-xl" data-key="metodo.cta">Agendar Auditoría Gratuita →</a>
+        <div class="guarantee">
+          <span class="check">✓</span> 15 minutos &nbsp;·&nbsp; <span class="check">✓</span> Sin compromiso &nbsp;·&nbsp; <span class="check">✓</span> Si no te aporta, te decimos no
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TECNOLOGÍA / TRUST ===== -->
+  <section id="tecnologia">
+    <div class="trust-card">
+      <div class="trust-inner">
+        <h2><span data-key="trust.title1">Construido sobre</span> <span class="grad" data-key="trust.title2">Make.com e IA de nueva generación</span></h2>
+        <p data-key="trust.subtitle">Trabajamos con la misma base tecnológica que equipos de Stripe, Shopify y Notion: OpenAI GPT-4, Anthropic Claude, Make.com y las APIs nativas de tu CRM. Tecnología sólida, mantenible y bajo tu control.</p>
+        <div class="trust-logos">
+          <div class="logo-chip"><span class="glyph">M</span><span>Make.com</span></div>
+          <div class="logo-chip"><span class="glyph">A</span><span>Anthropic</span></div>
+          <div class="logo-chip"><span class="glyph">O</span><span>OpenAI</span></div>
+          <div class="logo-chip"><span class="glyph">H</span><span>HubSpot</span></div>
+          <div class="logo-chip"><span class="glyph">W</span><span>WhatsApp</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="preguntas">
+    <div class="section-head-flex" style="justify-content: center; text-align: center; flex-direction: column; align-items: center;">
+      <div style="text-align: center;">
+        <div class="section-tag" style="justify-content: center;">Preguntas frecuentes</div>
+        <h2 class="section-title" style="text-align: center;">Lo que nos suelen preguntar antes de empezar.</h2>
+      </div>
+    </div>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q">¿De verdad es gratis durante 7 días? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="faq-a">Sí. Montamos un sistema mínimo viable conectado a tu negocio real y lo dejamos funcionando una semana entera. Si al séptimo día no te aporta tiempo o ventas, lo desmontamos sin coste y sin facturación.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">¿Funciona con mi CRM y mis herramientas actuales? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="faq-a">En el 95 % de los casos, sí. Trabajamos habitualmente con HubSpot, Pipedrive, Inmovilla, Witei, Shopify, WooCommerce y CRMs propios vía API o webhooks. En la auditoría de 15 minutos lo confirmamos sin coste.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">¿La IA puede equivocarse al hablar con un cliente? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="faq-a">El agente solo responde con información que tú apruebas previamente. En cualquier momento puede derivar la conversación a un comercial humano y todas las interacciones quedan registradas para que las revises.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">¿Hay permanencia o cuotas ocultas? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="faq-a">No. La prueba es gratuita. Después, el proyecto se factura como implementación más una cuota mensual de mantenimiento opcional. Si decides dejar de trabajar con nosotros, los flujos siguen funcionando en tu cuenta y la propiedad es tuya.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Solo somos un nicho concreto, ¿también os encaja? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
+        <div class="faq-a">Nuestro nicho principal es el sector inmobiliario, pero trabajamos con cualquier negocio que dependa de captar y atender bien a sus clientes: ecommerce, servicios profesionales, agencias, formación, hostelería e industria B2B.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACTO ===== -->
+  <section id="contacto">
+    <div class="section-head-flex">
+      <div>
+        <div class="section-tag">Contacto</div>
+        <h2 class="section-title">¿Listo para tu auditoría gratuita?</h2>
+      </div>
+      <p class="section-lead">Respondemos en menos de 24 h laborables. Sin compromiso, sin formularios eternos, sin venderte humo.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Cuéntanos qué quieres dejar de hacer a mano.</h3>
+        <p>En 15 minutos identificamos el proceso que más tiempo te roba y te decimos si podemos automatizarlo. Si no podemos, te lo decimos directamente y te ahorramos la llamada de venta.</p>
+        <div class="contact-list">
+          <div class="contact-list-item">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div>
+              <div class="lbl">Correo</div>
+              <div class="val"><a href="mailto:hola@zyntria.es">hola@zyntria.es</a></div>
+            </div>
+          </div>
+          <div class="contact-list-item">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+            <div>
+              <div class="lbl">Teléfono</div>
+              <div class="val"><a href="tel:+34000000000">+34 — — — — —</a></div>
+            </div>
+          </div>
+          <div class="contact-list-item">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div>
+              <div class="lbl">Oficina</div>
+              <div class="val">Madrid · España</div>
+            </div>
+          </div>
+          <div class="contact-list-item">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div>
+              <div class="lbl">Horario</div>
+              <div class="val">Lun–Vie · 9:00 – 19:00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="f-nombre">Nombre</label>
+            <input id="f-nombre" type="text" name="nombre" required placeholder="Tu nombre" />
+          </div>
+          <div class="form-field">
+            <label for="f-empresa">Empresa</label>
+            <input id="f-empresa" type="text" name="empresa" placeholder="Nombre de tu empresa" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="f-email">Correo</label>
+            <input id="f-email" type="email" name="email" required placeholder="tu@empresa.es" />
+          </div>
+          <div class="form-field">
+            <label for="f-telefono">Teléfono</label>
+            <input id="f-telefono" type="tel" name="telefono" placeholder="Opcional" />
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="form-field">
+            <label for="f-sector">Sector</label>
+            <select id="f-sector" name="sector" required>
+              <option value="">Selecciona tu sector</option>
+              <option>Inmobiliario</option>
+              <option>Ecommerce</option>
+              <option>Servicios profesionales (abogados, asesorías, salud...)</option>
+              <option>Agencia / consultoría</option>
+              <option>Educación y formación</option>
+              <option>Hostelería y restauración</option>
+              <option>Industria / B2B</option>
+              <option>Otro</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="form-field">
+            <label for="f-mensaje">¿Qué tarea te está robando más tiempo?</label>
+            <textarea id="f-mensaje" name="mensaje" required placeholder="Cuéntanos brevemente lo que más te cuesta hoy. Cuanto más concreto, mejor."></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary form-submit">Solicitar auditoría gratuita →</button>
+        <div class="form-foot">Respondemos antes de 24 h laborables. Tus datos solo se usan para contactar contigo.</div>
+      </form>
+
+      <div class="contact-form form-success" id="contactSuccess">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+        <h4>Mensaje preparado.</h4>
+        <p>Hemos abierto tu correo con el mensaje listo para enviar. Si tu cliente de correo no se abre, escríbenos directamente a <a href="mailto:hola@zyntria.es" style="color:var(--accent);">hola@zyntria.es</a>.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="brand" style="text-decoration:none; color:inherit;">
+        <img src="zyntria-logo.png" alt="ZYNTRIA" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div style="display:none; align-items:center; gap:12px;">
+          <div class="brand-mark"></div>
+          <div class="brand-name">ZYNTRIA</div>
+        </div>
+      </a>
+      <p>Make everything easy. Implementamos Agentes de IA y sistemas de automatización para que dejes de perder ventas en tareas manuales.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Servicios</h5>
+      <a href="#servicios">Respuesta omnicanal</a>
+      <a href="#servicios">Sincronización CRM</a>
+      <a href="#servicios">Agentes de IA</a>
+    </div>
+    <div class="footer-col">
+      <h5>Empresa</h5>
+      <a href="#demo">Demo</a>
+      <a href="#metodo">Método</a>
+      <a href="#preguntas">Preguntas</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contacto</h5>
+      <a href="mailto:hola@zyntria.es">hola@zyntria.es</a>
+      <a href="#">+34 — — — — —</a>
+      <a href="#">Madrid · España</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 ZYNTRIA · Todos los derechos reservados</span>
+    <span>v1.0 · construido con Make + IA</span>
+  </div>
+</footer>
+
+<!-- ===== EDIT FAB ===== -->
+<button class="edit-fab" id="editFab" title="Activar modo edición">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 113 3L7 19l-4 1 1-4z"/></svg>
+</button>
+
+<!-- ===== EDITOR PANEL ===== -->
+<aside class="editor" id="editor">
+  <div class="editor-head">
+    <div>
+      <h4 id="editorTitle">Editar sección</h4>
+      <div class="sub" id="editorSub">SECTION</div>
+    </div>
+    <button class="editor-close" id="editorClose">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="editor-body" id="editorBody"></div>
+  <div class="editor-foot">
+    <button id="editorReset">Restablecer</button>
+    <button class="save" id="editorSave">Guardar ✓</button>
+  </div>
+</aside>
+
+<div class="toast" id="toast"><span class="dot"></span><span id="toastMsg">Listo</span></div>
+
+<script>
+/* ============== THEME ============== */
+const root = document.documentElement;
+const btnDark = document.getElementById('themeDark');
+const btnLight = document.getElementById('themeLight');
+function setTheme(t){
+  root.setAttribute('data-theme', t);
+  btnDark.classList.toggle('on', t === 'dark');
+  btnLight.classList.toggle('on', t === 'light');
+  localStorage.setItem('zy-theme', t);
+}
+btnDark.addEventListener('click', () => setTheme('dark'));
+btnLight.addEventListener('click', () => setTheme('light'));
+setTheme(localStorage.getItem('zy-theme') || 'light');
+
+/* ============== TOAST ============== */
+const toast = document.getElementById('toast');
+const toastMsg = document.getElementById('toastMsg');
+function showToast(msg){
+  toastMsg.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(()=> toast.classList.remove('show'), 2400);
+}
+
+/* ============== EDIT MODE ============== */
+const editFab = document.getElementById('editFab');
+editFab.addEventListener('click', () => {
+  document.body.classList.toggle('edit-mode');
+  if(document.body.classList.contains('edit-mode')){
+    showToast('Modo edición activado — haz click en cualquier bloque editable');
+  } else {
+    showToast('Modo edición desactivado');
+    closeEditor();
+  }
+});
+
+/* ============== FAQ ============== */
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.querySelector('.faq-q').addEventListener('click', () => {
+    item.classList.toggle('open');
+  });
+});
+
+/* ============== EDITOR DATA ============== */
+const EDIT_GROUPS = {
+  'service-1': serviceGroup('Respuesta Omnicanal', 1),
+  'service-2': serviceGroup('Sincronización CRM', 2),
+  'service-3': serviceGroup('Agentes de IA', 3),
+};
+function serviceGroup(name, n){
+  return {
+    title: `Servicio ${n}: ${name}`,
+    sub: `SERVICIO · ${n}`,
+    fields: [
+      {key:`service-${n}.title`, label:'Título', type:'text'},
+      {key:`service-${n}.desc`, label:'Descripción', type:'textarea'},
+    ]
+  };
+}
+
+/* ============== EDITOR ============== */
+const editor = document.getElementById('editor');
+const editorTitle = document.getElementById('editorTitle');
+const editorSub = document.getElementById('editorSub');
+const editorBody = document.getElementById('editorBody');
+const editorClose = document.getElementById('editorClose');
+const editorSave = document.getElementById('editorSave');
+const editorReset = document.getElementById('editorReset');
+
+const ORIGINAL = {};
+document.querySelectorAll('[data-key]').forEach(el => { ORIGINAL[el.dataset.key] = el.textContent; });
+
+function openEditor(groupId){
+  const group = EDIT_GROUPS[groupId];
+  if(!group) return;
+  editorTitle.textContent = group.title;
+  editorSub.textContent = group.sub;
+  editorBody.innerHTML = '';
+  group.fields.forEach(f => {
+    const wrap = document.createElement('div');
+    wrap.className = 'field';
+    const lbl = document.createElement('label');
+    lbl.textContent = f.label;
+    wrap.appendChild(lbl);
+    const target = document.querySelector(`[data-key="${f.key}"]`);
+    const val = target ? target.textContent : '';
+    let input;
+    if(f.type === 'textarea'){
+      input = document.createElement('textarea');
+      input.value = val;
+    } else {
+      input = document.createElement('input');
+      input.type = 'text';
+      input.value = val;
+    }
+    input.addEventListener('input', () => {
+      if(target) target.textContent = input.value;
+    });
+    wrap.appendChild(input);
+    editorBody.appendChild(wrap);
+  });
+  editor.classList.add('open');
+  editor._group = groupId;
+}
+function closeEditor(){ editor.classList.remove('open'); }
+editorClose.addEventListener('click', closeEditor);
+editorSave.addEventListener('click', () => { showToast('Cambios guardados'); closeEditor(); });
+editorReset.addEventListener('click', () => {
+  const group = EDIT_GROUPS[editor._group];
+  if(!group) return;
+  group.fields.forEach(f => {
+    const target = document.querySelector(`[data-key="${f.key}"]`);
+    if(target) target.textContent = ORIGINAL[f.key] ?? '';
+  });
+  openEditor(editor._group);
+  showToast('Texto restablecido');
+});
+
+document.addEventListener('click', (e) => {
+  if(!document.body.classList.contains('edit-mode')) return;
+  const trigger = e.target.closest('[data-edit]');
+  if(trigger){
+    e.preventDefault();
+    e.stopPropagation();
+    openEditor(trigger.dataset.edit);
+  }
+});
+
+/* ============== FORMULARIO DE CONTACTO ============== */
+const contactForm = document.getElementById('contactForm');
+const contactSuccess = document.getElementById('contactSuccess');
+if(contactForm){
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if(!contactForm.checkValidity()){
+      contactForm.reportValidity();
+      return;
+    }
+    const data = new FormData(contactForm);
+    const nombre = data.get('nombre') || '';
+    const empresa = data.get('empresa') || '—';
+    const email = data.get('email') || '';
+    const telefono = data.get('telefono') || '—';
+    const sector = data.get('sector') || '';
+    const mensaje = data.get('mensaje') || '';
+    const subject = `Auditoría gratuita — ${nombre} (${sector})`;
+    const body =
+`Hola equipo ZYNTRIA,
+
+Soy ${nombre} de ${empresa}.
+
+Sector: ${sector}
+Correo: ${email}
+Teléfono: ${telefono}
+
+Lo que más nos está costando hoy:
+${mensaje}
+
+Quiero agendar mi auditoría gratuita de 15 minutos.
+
+Un saludo.`;
+    const mailto = `mailto:hola@zyntria.es?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+    contactForm.style.display = 'none';
+    if(contactSuccess) contactSuccess.classList.add('show');
+    showToast('Mensaje preparado en tu correo');
+  });
+}
+
+/* ============== VIDEO PLACEHOLDER (click para anclar al CTA) ============== */
+const videoPlaceholder = document.getElementById('videoPlaceholder');
+if(videoPlaceholder){
+  videoPlaceholder.addEventListener('click', () => {
+    document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+  });
+}
+</script>
+</body>
+</html>
