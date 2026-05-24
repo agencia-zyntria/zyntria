@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
@@ -11,14 +11,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-  /* VARIABLES DE TEMA FIJO (CLARO) */
+  /* VARIABLES DE TEMA DARK TECH (MODERNIZADO) */
   :root {
-    --bg: #f7faff; --bg-elev: #ffffff; --bg-card: rgba(13,71,161,0.025);
-    --border: rgba(13,71,161,0.10); --border-strong: rgba(13,71,161,0.20);
-    --text: #0a1e3f; --text-dim: #4a5b7a; --text-faint: #94a3b8;
-    --accent: #1e6bff; --accent-2: #3aa9ff; --accent-glow: rgba(30,107,255,0.22);
-    --danger: #dc2626; --grid-line: rgba(13,71,161,0.05);
-    --shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 0 0 1px rgba(13,71,161,0.04), 0 20px 50px -20px rgba(13,71,161,0.18);
+    --bg: #0d1117; 
+    --bg-elev: #161b22; 
+    --bg-card: rgba(255, 255, 255, 0.03);
+    --border: rgba(255, 255, 255, 0.10); 
+    --border-strong: rgba(255, 255, 255, 0.20);
+    --text: #f0f6fc; 
+    --text-dim: #8b949e; 
+    --text-faint: #6e7681;
+    --accent: #00a3ff; /* Azul Neón Zyntria */
+    --accent-2: #005bb5; 
+    --accent-glow: rgba(0, 163, 255, 0.15);
+    --danger: #ff7b72; 
+    --grid-line: rgba(255, 255, 255, 0.03);
+    --shadow: 0 1px 0 rgba(255,255,255,0.05) inset, 0 0 0 1px rgba(0,0,0,0.5), 0 20px 50px -20px rgba(0,0,0,0.8);
   }
 
   /* RESET Y ESTILOS BASE */
@@ -30,31 +38,47 @@
     min-height: 100vh;
     background-image:
       radial-gradient(900px circle at 15% -5%, var(--accent-glow), transparent 50%),
-      radial-gradient(700px circle at 100% 20%, rgba(45,209,255,0.10), transparent 55%),
+      radial-gradient(700px circle at 100% 20%, rgba(45,209,255,0.05), transparent 55%),
       linear-gradient(var(--grid-line) 1px, transparent 1px),
       linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: auto, auto, 48px 48px, 48px 48px;
     background-attachment: fixed, fixed, fixed, fixed;
   }
 
-  /* NAVEGACIÓN */
+  /* NAVEGACIÓN (GLASSMORPHISM) */
   .nav {
-    position: sticky; top: 0; z-index: 50;
+    position: sticky; top: 0; z-index: 1000;
     backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(13, 17, 23, 0.8);
     border-bottom: 1px solid var(--border);
     padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px;
   }
   .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
-  .logo-img { display: block; height: 34px; width: auto; border-radius: 6px; }
+  
+  /* LOGO INTERACTIVO */
+  .logo-img { 
+    display: block; 
+    height: 38px; 
+    width: auto; 
+    border-radius: 6px; 
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  .brand:hover .logo-img {
+    transform: scale(1.08);
+    filter: drop-shadow(0px 0px 12px rgba(0, 163, 255, 0.6));
+  }
+  
   .brand-name { font-weight: 700; letter-spacing: 0.02em; font-size: 18px; }
   
   .nav-cta {
     padding: 10px 18px; border-radius: 10px; font-size: 14px; font-weight: 600;
-    background: var(--text); color: #ffffff; border: 0; cursor: pointer; text-decoration: none;
-    transition: transform 0.15s ease;
+    background: var(--text); color: var(--bg); border: 0; cursor: pointer; text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
-  .nav-cta:hover { transform: translateY(-2px); }
+  .nav-cta:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+  }
 
   /* ESTRUCTURA GENERAL */
   main { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
@@ -88,7 +112,7 @@
   }
   .hero h1 { font-size: clamp(42px, 6vw, 76px); line-height: 1.05; letter-spacing: -0.04em; font-weight: 800; max-width: 1000px; margin: 0 auto 28px; }
   .hero h1 .grad, .section-title .grad {
-    background: linear-gradient(110deg, var(--accent), var(--accent-2));
+    background: linear-gradient(110deg, var(--accent), #55baff);
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
   .hero .lead { color: var(--text-dim); font-size: clamp(17px, 1.6vw, 21px); line-height: 1.55; max-width: 760px; margin: 0 auto 42px; }
@@ -115,8 +139,8 @@
   /* SERVICIOS */
   .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
   .service { background: var(--bg-elev); padding: 38px 30px; border: 1px solid var(--border); border-radius: 20px; transition: all 0.2s ease; display: flex; flex-direction: column; position: relative; overflow: hidden; }
-  .service:hover { border-color: var(--border-strong); transform: translateY(-3px); box-shadow: 0 20px 50px -20px rgba(0,0,0,0.1); }
-  .service .ico { width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(140deg, color-mix(in srgb, var(--accent) 30%, transparent), color-mix(in srgb, var(--accent-2) 20%, transparent)); border: 1px solid var(--border-strong); display: inline-flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 24px; }
+  .service:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 30px -10px var(--accent-glow); }
+  .service .ico { width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(140deg, color-mix(in srgb, var(--accent) 20%, transparent), transparent); border: 1px solid var(--border-strong); display: inline-flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 24px; }
   .service h3 { font-size: 19px; font-weight: 700; margin-bottom: 12px; }
   .tag-promo { font-size: 11px; font-family: 'JetBrains Mono', monospace; background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); padding: 4px 10px; border-radius: 99px; border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); font-weight: 600;}
   .service p { color: var(--text-dim); font-size: 15px; line-height: 1.6; }
@@ -125,7 +149,7 @@
   .method-wrap { border: 1px solid var(--border); border-radius: 28px; background: var(--bg-elev); padding: 64px 56px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
   .method-head { text-align: center; margin-bottom: 56px; }
   .method-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 56px; }
-  .method-step { border: 1px solid var(--border); border-radius: 16px; padding: 26px 22px; background: #fdfdfd; }
+  .method-step { border: 1px solid var(--border); border-radius: 16px; padding: 26px 22px; background: var(--bg-card); }
   .method-step .num { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 999px; background: var(--accent); color: white; font-weight: 700; font-size: 14px; margin-bottom: 18px; font-family: 'JetBrains Mono', monospace; }
   .method-step h4 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
   .method-step p { color: var(--text-dim); font-size: 14px; line-height: 1.55; }
@@ -134,9 +158,10 @@
   .trust-card { border: 1px solid var(--border); border-radius: 22px; background: var(--bg-elev); box-shadow: var(--shadow); padding: 56px 24px; text-align: center; margin-bottom: 50px; }
   .tally-container { width: 100%; max-width: 600px; margin: 0 auto; }
 
-  /* =====================================================================
-     ADAPTACIÓN MÓVIL AÑADIDA: ESTO ORDENA LAS COLUMNAS EN PANTALLAS PEQUEÑAS 
-     ===================================================================== */
+  /* FOOTER */
+  footer { text-align: center; padding: 40px 20px; color: var(--text-faint); font-size: 14px; border-top: 1px solid var(--border); }
+
+  /* ADAPTACIÓN MÓVIL */
   @media (max-width: 980px) {
     .pain-grid, .services { grid-template-columns: repeat(2, 1fr); }
     .method-steps { grid-template-columns: repeat(2, 1fr); }
@@ -156,10 +181,10 @@
 <body>
 
   <nav class="nav">
-    <a href="#" class="brand" style="text-decoration: none; color: inherit;">
-      <img src="logo.jpeg" alt="Logo" class="logo-img" onerror="this.style.display='none'">
+    <a href="#" class="brand">
+      <img src="logo-completo.png" alt="Logo Zyntria" class="logo-img" onerror="this.src='https://via.placeholder.com/38?text=Z'">
       <div style="display: flex; flex-direction: column; line-height: 1.2;">
-        <span class="brand-name" style="font-size: 19px; font-weight: 800;">ZYNTRIA</span>
+        <span class="brand-name">ZYNTRIA</span>
         <span style="font-size: 10px; font-family: 'JetBrains Mono', monospace; color: var(--text-faint); font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase;">Make everything easy</span>
       </div>
     </a>
@@ -210,15 +235,24 @@
     <section id="contacto">
       <div class="trust-card">
         <h2>Agendar <span class="grad">Auditoría Operativa</span></h2>
-        <div style="margin: 20px 0 30px 0; font-size: 15px; color: var(--text-dim); text-align: left; background: var(--bg-card); padding: 24px; border-radius: 14px; border: 1px solid var(--border);">
-          <p>📍 <strong>Oficina Central:</strong> Zaragoza, España</p>
-          <p>📞 <strong>Teléfono:</strong> 654 208 056</p>
+        <div style="margin: 20px auto 30px auto; max-width: 600px; font-size: 15px; color: var(--text-dim); text-align: left; background: var(--bg-card); padding: 24px; border-radius: 14px; border: 1px solid var(--border);">
+          <p style="margin-bottom: 8px;">📍 <strong>Oficina Central:</strong> Zaragoza, España</p>
+          <p style="margin-bottom: 8px;">📞 <strong>Teléfono:</strong> 654 208 056</p>
           <p>✉️ <strong>Email:</strong> zyntriateam@gmail.com</p>
         </div>
-      <iframe data-tally-src="https://tally.so/embed/NpbNJl?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="553" frameborder="0" marginheight="0" marginwidth="0" title="Solicitud de Auditoría - ZYNTRIA"></iframe>
-<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+        
+        <div class="tally-container">
+          <iframe data-tally-src="https://tally.so/embed/NpbNJl?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="553" frameborder="0" marginheight="0" marginwidth="0" title="Solicitud de Auditoría - ZYNTRIA"></iframe>
+          <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+        </div>
+
       </div>
     </section>
   </main>
+
+  <footer>
+    <p>&copy; 2026 ZYNTRIA. Make everything easy. Todos los derechos reservados.</p>
+  </footer>
+
 </body>
 </html>
