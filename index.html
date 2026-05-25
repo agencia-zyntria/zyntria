@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
@@ -11,22 +11,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-  /* VARIABLES DE TEMA DARK TECH (MODERNIZADO) */
+  /* VARIABLES DE TEMA TECH CLARO (FUTURISTA) */
   :root {
-    --bg: #0d1117; 
-    --bg-elev: #161b22; 
-    --bg-card: rgba(255, 255, 255, 0.03);
-    --border: rgba(255, 255, 255, 0.10); 
-    --border-strong: rgba(255, 255, 255, 0.20);
-    --text: #f0f6fc; 
-    --text-dim: #8b949e; 
-    --text-faint: #6e7681;
+    --bg: #ffffff; /* Fondo Blanco Puro */
+    --bg-puro: #ffffff;
+    --bg-elev: #f7faff; /* Azul muy pálido para tarjetas */
+    --bg-card: rgba(0, 163, 255, 0.04);
+    --border: rgba(0, 163, 255, 0.08); 
+    --border-strong: rgba(0, 163, 255, 0.15);
+    --text: #0a1e3f; /* Texto Azul Muy Oscuro */
+    --text-dim: #4a5b7a; 
+    --text-faint: #94a3b8;
     --accent: #00a3ff; /* Azul Neón Zyntria */
-    --accent-2: #005bb5; 
-    --accent-glow: rgba(0, 163, 255, 0.15);
-    --danger: #ff7b72; 
-    --grid-line: rgba(255, 255, 255, 0.03);
-    --shadow: 0 1px 0 rgba(255,255,255,0.05) inset, 0 0 0 1px rgba(0,0,0,0.5), 0 20px 50px -20px rgba(0,0,0,0.8);
+    --accent-glow: rgba(0, 163, 255, 0.2);
+    --danger: #dc2626; 
+    --shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 0 0 1px rgba(0, 163, 255, 0.04), 0 20px 50px -20px rgba(0, 163, 255, 0.1);
   }
 
   /* RESET Y ESTILOS BASE */
@@ -36,48 +35,56 @@
     background: var(--bg); color: var(--text);
     font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased;
     min-height: 100vh;
-    background-image:
-      radial-gradient(900px circle at 15% -5%, var(--accent-glow), transparent 50%),
-      radial-gradient(700px circle at 100% 20%, rgba(45,209,255,0.05), transparent 55%),
-      linear-gradient(var(--grid-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-    background-size: auto, auto, 48px 48px, 48px 48px;
-    background-attachment: fixed, fixed, fixed, fixed;
+    overflow-x: hidden;
   }
 
-  /* NAVEGACIÓN (GLASSMORPHISM) */
+  /* FONDO DINÁMICO DE FLUJOS (TECNOLÓGICO FUTURISTA) */
+  body::before {
+    content: "";
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+    background-color: var(--bg);
+    background-image: 
+      radial-gradient(at 10% 10%, rgba(0, 163, 255, 0.06) 0px, transparent 50%),
+      radial-gradient(at 90% 90%, rgba(0, 163, 255, 0.04) 0px, transparent 50%),
+      /* Patrón sutil de flujos/circuitos */
+      url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDgwIDgwIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIHN0cm9rZT0iIzAwYTNmZiIgc3Ryb2tlLW9wYWNpdHk9IjAuMDUiIHN0cm9rZS13aWR0aD0iMC41Ij48cGF0aCBkPSJNMTAgMTBoNjB2NjBIMTB6TTQwIDQwcmMzMCAwIDMwIDMwIDMwIDMwTTQwIDQwYy0zMCAwLTMwLTMwLTMwLTMwTTQwIDQwcmMzMCAwLTMwLTMwLTMwLTMwTTQwIDQwYy0zMCAwLTMwIDMwLTMwIDMwIi8+PC9nPjwvZz48L3N2Zz4=');
+    background-size: auto, auto, 80px 80px;
+    opacity: 1;
+  }
+
+  /* NAVEGACIÓN (GLASSMORPHISM CLARO) */
   .nav {
     position: sticky; top: 0; z-index: 1000;
     backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-    background: rgba(13, 17, 23, 0.8);
+    background: rgba(255, 255, 255, 0.85);
     border-bottom: 1px solid var(--border);
-    padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    padding: 12px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px;
   }
   .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
   
-  /* LOGO INTERACTIVO */
-  .logo-img { 
+  /* LOGO DEL MENÚ (logo-zoom.png ampliado sin nombre) */
+  .logo-img-nav { 
     display: block; 
-    height: 38px; 
+    height: 42px; /* Más alto y ampliado */
     width: auto; 
-    border-radius: 6px; 
     transition: transform 0.3s ease, filter 0.3s ease;
   }
-  .brand:hover .logo-img {
+  .brand:hover .logo-img-nav {
     transform: scale(1.08);
-    filter: drop-shadow(0px 0px 12px rgba(0, 163, 255, 0.6));
+    filter: drop-shadow(0px 0px 8px var(--accent-glow));
   }
   
-  .brand-name { font-weight: 700; letter-spacing: 0.02em; font-size: 18px; }
+  .brand-name { font-weight: 800; letter-spacing: -0.02em; font-size: 20px; color: var(--text); }
   
   .nav-cta {
     padding: 10px 18px; border-radius: 10px; font-size: 14px; font-weight: 600;
-    background: var(--text); color: var(--bg); border: 0; cursor: pointer; text-decoration: none;
+    background: var(--text); color: var(--bg-puro); border: 0; cursor: pointer; text-decoration: none;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
   .nav-cta:hover { 
     transform: translateY(-2px); 
-    box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+    box-shadow: 0 5px 15px rgba(10, 30, 63, 0.15);
   }
 
   /* ESTRUCTURA GENERAL */
@@ -93,7 +100,7 @@
     content: ""; width: 6px; height: 6px; border-radius: 999px;
     background: var(--accent); box-shadow: 0 0 8px var(--accent);
   }
-  .section-title { font-size: clamp(30px, 3.8vw, 48px); letter-spacing: -0.03em; font-weight: 700; line-height: 1.1; margin-bottom: 16px; max-width: 800px; }
+  .section-title { font-size: clamp(30px, 3.8vw, 48px); letter-spacing: -0.03em; font-weight: 800; line-height: 1.1; margin-bottom: 16px; max-width: 800px; color: var(--text); }
   .section-lead { color: var(--text-dim); font-size: 17px; line-height: 1.6; max-width: 680px; }
   .section-head-flex { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: 56px; }
 
@@ -102,15 +109,15 @@
   .hero-eyebrow {
     display: inline-flex; align-items: center; gap: 10px;
     padding: 8px 16px; border-radius: 999px;
-    background: var(--bg-card); border: 1px solid var(--border);
+    background: var(--bg-elev); border: 1px solid var(--border);
     font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-dim); margin-bottom: 32px;
   }
   .hero-eyebrow .dot {
     width: 12px; height: 12px; border-radius: 999px;
-    background: conic-gradient(from 220deg, var(--accent), var(--accent-2));
+    background: conic-gradient(from 220deg, var(--accent), #55baff);
     box-shadow: 0 0 12px var(--accent-glow);
   }
-  .hero h1 { font-size: clamp(42px, 6vw, 76px); line-height: 1.05; letter-spacing: -0.04em; font-weight: 800; max-width: 1000px; margin: 0 auto 28px; }
+  .hero h1 { font-size: clamp(42px, 6vw, 76px); line-height: 1.05; letter-spacing: -0.04em; font-weight: 800; max-width: 1000px; margin: 0 auto 28px; color: var(--text); }
   .hero h1 .grad, .section-title .grad {
     background: linear-gradient(110deg, var(--accent), #55baff);
     -webkit-background-clip: text; background-clip: text; color: transparent;
@@ -128,38 +135,44 @@
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 70%, white), 0 22px 40px -10px var(--accent-glow); }
   .btn-xl { padding: 20px 36px; font-size: 17px; border-radius: 14px; }
 
-  /* DOLORES (PAIN GRID) */
+  /* DOLORES (PAIN GRID CLARO) */
   .pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-  .pain-card { border: 1px solid var(--border); border-radius: 18px; padding: 32px 28px; background: var(--bg-elev); position: relative; overflow: hidden; }
-  .pain-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--danger) 60%, transparent), transparent); }
-  .pain-card .x-ico { width: 44px; height: 44px; border-radius: 12px; background: color-mix(in srgb, var(--danger) 10%, var(--bg-card)); border: 1px solid color-mix(in srgb, var(--danger) 30%, var(--border-strong)); display: inline-flex; align-items: center; justify-content: center; color: var(--danger); margin-bottom: 22px; font-weight: bold; font-size: 20px;}
-  .pain-card h3 { font-size: 19px; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 12px; }
+  .pain-card { border: 1px solid var(--border); border-radius: 18px; padding: 32px 28px; background: var(--bg-puro); position: relative; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+  .pain-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--danger) 40%, transparent), transparent); }
+  .pain-card .x-ico { width: 44px; height: 44px; border-radius: 12px; background: color-mix(in srgb, var(--danger) 5%, transparent); border: 1px solid color-mix(in srgb, var(--danger) 15%, var(--border)); display: inline-flex; align-items: center; justify-content: center; color: var(--danger); margin-bottom: 22px; font-weight: bold; font-size: 20px;}
+  .pain-card h3 { font-size: 19px; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 12px; color: var(--text); }
   .pain-card p { color: var(--text-dim); font-size: 15px; line-height: 1.6; }
 
-  /* SERVICIOS */
+  /* SERVICIOS (CLARO) */
   .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-  .service { background: var(--bg-elev); padding: 38px 30px; border: 1px solid var(--border); border-radius: 20px; transition: all 0.2s ease; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+  .service { background: var(--bg-puro); padding: 38px 30px; border: 1px solid var(--border); border-radius: 20px; transition: all 0.2s ease; display: flex; flex-direction: column; position: relative; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
   .service:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 30px -10px var(--accent-glow); }
-  .service .ico { width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(140deg, color-mix(in srgb, var(--accent) 20%, transparent), transparent); border: 1px solid var(--border-strong); display: inline-flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 24px; }
-  .service h3 { font-size: 19px; font-weight: 700; margin-bottom: 12px; }
-  .tag-promo { font-size: 11px; font-family: 'JetBrains Mono', monospace; background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); padding: 4px 10px; border-radius: 99px; border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); font-weight: 600;}
+  .service .ico { width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(140deg, color-mix(in srgb, var(--accent) 5%, transparent), transparent); border: 1px solid var(--border-strong); display: inline-flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 24px; }
+  .service h3 { font-size: 19px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+  .tag-promo { font-size: 11px; font-family: 'JetBrains Mono', monospace; background: var(--bg-elev); color: var(--accent); padding: 4px 10px; border-radius: 99px; border: 1px solid var(--border-strong); font-weight: 600;}
   .service p { color: var(--text-dim); font-size: 15px; line-height: 1.6; }
 
-  /* MÉTODO */
-  .method-wrap { border: 1px solid var(--border); border-radius: 28px; background: var(--bg-elev); padding: 64px 56px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+  /* MÉTODO (CLARO) */
+  .method-wrap { border: 1px solid var(--border); border-radius: 28px; background: var(--bg-puro); padding: 64px 56px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
   .method-head { text-align: center; margin-bottom: 56px; }
+  .method-head h2 { color: var(--text); font-weight: 800; font-size: clamp(28px, 3vw, 36px); }
   .method-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 56px; }
-  .method-step { border: 1px solid var(--border); border-radius: 16px; padding: 26px 22px; background: var(--bg-card); }
-  .method-step .num { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 999px; background: var(--accent); color: white; font-weight: 700; font-size: 14px; margin-bottom: 18px; font-family: 'JetBrains Mono', monospace; }
-  .method-step h4 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+  .method-step { border: 1px solid var(--border); border-radius: 16px; padding: 26px 22px; background: var(--bg-elev); }
+  .method-step .num { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 999px; background: var(--text); color: var(--bg-puro); font-weight: 700; font-size: 14px; margin-bottom: 18px; font-family: 'JetBrains Mono', monospace; }
+  .method-step h4 { font-size: 17px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
   .method-step p { color: var(--text-dim); font-size: 14px; line-height: 1.55; }
   
-  /* CONTACTO */
-  .trust-card { border: 1px solid var(--border); border-radius: 22px; background: var(--bg-elev); box-shadow: var(--shadow); padding: 56px 24px; text-align: center; margin-bottom: 50px; }
+  /* CONTACTO / FORMULARIO (CLARO) */
+  .trust-card { border: 1px solid var(--border); border-radius: 22px; background: var(--bg-puro); box-shadow: var(--shadow); padding: 56px 24px; text-align: center; margin-bottom: 50px; }
+  .trust-card h2 { color: var(--text); font-weight: 800; }
   .tally-container { width: 100%; max-width: 600px; margin: 0 auto; }
 
-  /* FOOTER */
-  footer { text-align: center; padding: 40px 20px; color: var(--text-faint); font-size: 14px; border-top: 1px solid var(--border); }
+  /* FOOTER CON LOGO EXTRA (logo-completo.png) */
+  footer { 
+    text-align: center; padding: 60px 20px; color: var(--text-dim); font-size: 14px; border-top: 1px solid var(--border); 
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
+  }
+  .logo-img-footer { display: block; height: 34px; width: auto; opacity: 0.8; }
 
   /* ADAPTACIÓN MÓVIL */
   @media (max-width: 980px) {
@@ -170,11 +183,13 @@
   @media (max-width: 768px) {
     .pain-grid, .services, .method-steps { grid-template-columns: 1fr; }
     .method-wrap, .trust-card { padding: 40px 20px; }
-    .nav { padding: 14px 16px; }
+    .nav { padding: 12px 16px; }
     .brand-name { font-size: 16px; }
+    .logo-img-nav { height: 34px; }
     .nav-cta { padding: 8px 12px; font-size: 12px; }
     section { padding: 60px 0; }
     .hero { padding: 60px 0 40px; }
+    .hero h1 { font-size: 34px; }
   }
 </style>
 </head>
@@ -182,8 +197,8 @@
 
   <nav class="nav">
     <a href="#" class="brand">
-      <img src="logo-completo.png" alt="Logo Zyntria" class="logo-img" onerror="this.src='https://via.placeholder.com/38?text=Z'">
-      <div style="display: flex; flex-direction: column; line-height: 1.2;">
+      <img src="logo-zoom.png" alt="Zyntria Icon" class="logo-img-nav" onerror="this.src='https://via.placeholder.com/42?text=Z'">
+      <div style="display: flex; flex-direction: column; line-height: 1.1;">
         <span class="brand-name">ZYNTRIA</span>
         <span style="font-size: 10px; font-family: 'JetBrains Mono', monospace; color: var(--text-faint); font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase;">Make everything easy</span>
       </div>
@@ -212,11 +227,11 @@
       <h2 class="section-title">Tu negocio, en <span class="grad">piloto automático</span>.</h2>
       <div class="services">
         <div class="service"><div class="ico">🏠</div><h3>Inmobiliarias <span class="tag-promo">Pack Renacimiento</span></h3><p>IA para filtrar clientes de portales vía WhatsApp al instante.</p></div>
-        <div class="service"><div class="ico">⚖️</div><h3>LegalTech & Abogados</h3><p>Extracción automática de plazos judiciales y expedientes.</p></div>
+        <div class="service"><div class="ico">⚖&nbsp;</div><h3>LegalTech & Abogados</h3><p>Extracción automática de plazos judiciales y expedientes.</p></div>
         <div class="service"><div class="ico">🩺</div><h3>Clínicas Estéticas</h3><p>Chatbots para citas y seguimientos post-operatorios.</p></div>
         <div class="service"><div class="ico">👔</div><h3>Recursos Humanos</h3><p>Criba de CVs y auto-agendado de entrevistas.</p></div>
         <div class="service"><div class="ico">📦</div><h3>Logística</h3><p>Digitalización de albaranes y atención al cliente.</p></div>
-        <div class="service"><div class="ico">🛍️</div><h3>E-commerce</h3><p>Recuperación de carritos mediante IA experta.</p></div>
+        <div class="service"><div class="ico">🛍&nbsp;</div><h3>E-commerce</h3><p>Recuperación de carritos mediante IA experta.</p></div>
       </div>
     </section>
 
@@ -251,6 +266,7 @@
   </main>
 
   <footer>
+    <img src="logo-completo.png" alt="Logo Zyntria Completo" class="logo-img-footer" onerror="this.style.display='none'">
     <p>&copy; 2026 ZYNTRIA. Make everything easy. Todos los derechos reservados.</p>
   </footer>
 
