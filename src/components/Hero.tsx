@@ -1,11 +1,17 @@
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight, Zap } from 'lucide-react'
 import { Spotlight } from './ui/spotlight'
 
 const Spline = lazy(() => import('@splinetool/react-spline'))
 
+function useIsDesktop() {
+  const [isDesktop] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024)
+  return isDesktop
+}
+
 export function Hero() {
+  const isDesktop = useIsDesktop()
   return (
     <section className="relative w-full min-h-screen bg-navy-900 overflow-hidden flex items-center">
       {/* Spotlight beam */}
@@ -98,51 +104,32 @@ export function Hero() {
               </a>
             </motion.div>
 
-            {/* Social proof micro */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="flex items-center gap-3 pt-2"
-            >
-              <div className="flex -space-x-2">
-                {[1, 2, 3].map((n) => (
-                  <div
-                    key={n}
-                    className="w-8 h-8 rounded-full border-2 border-navy-900 bg-navy-700 flex items-center justify-center text-xs text-white font-bold"
-                  >
-                    {n}
-                  </div>
-                ))}
-              </div>
-              <p className="text-sm text-slate-500">
-                <span className="text-white font-semibold">+40 empresas</span> ya automatizan con Zyntria
-              </p>
-            </motion.div>
           </div>
 
-          {/* RIGHT: Spline 3D */}
-          <div className="flex-1 relative h-[380px] md:h-[500px] lg:h-[620px] w-full">
-            <Suspense
-              fallback={
-                <div className="w-full h-full flex items-center justify-center">
-                  <div className="w-10 h-10 border-2 border-electric border-t-transparent rounded-full animate-spin" />
-                </div>
-              }
-            >
-              <Spline
-                scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-                className="w-full h-full"
+          {/* RIGHT: Spline 3D — desktop only to avoid WebGL issues on mobile */}
+          {isDesktop && (
+            <div className="flex-1 relative h-[620px] w-full">
+              <Suspense
+                fallback={
+                  <div className="w-full h-full flex items-center justify-center">
+                    <div className="w-10 h-10 border-2 border-electric border-t-transparent rounded-full animate-spin" />
+                  </div>
+                }
+              >
+                <Spline
+                  scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                  className="w-full h-full"
+                />
+              </Suspense>
+              {/* Bottom fade */}
+              <div
+                className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(to top, #0A0F1E, transparent)',
+                }}
               />
-            </Suspense>
-            {/* Bottom fade */}
-            <div
-              className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
-              style={{
-                background: 'linear-gradient(to top, #0A0F1E, transparent)',
-              }}
-            />
-          </div>
+            </div>
+          )}
         </div>
       </div>
 

@@ -32,19 +32,11 @@ export function Navbar() {
           href="/"
           className="group flex-shrink-0 flex items-center transition-all duration-300 hover:opacity-85 active:scale-95"
         >
-          {/* Desktop: full logo with wordmark */}
-          <img
-            src="/logo-full.png"
-            alt="Zyntria"
-            draggable={false}
-            className="hidden md:block h-9 lg:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
-          />
-          {/* Mobile: symbol mark only */}
           <img
             src="/logo-mark.png"
             alt="Zyntria"
             draggable={false}
-            className="md:hidden h-9 w-9 object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+            className="h-9 w-9 lg:h-10 lg:w-10 object-contain transition-transform duration-300 group-hover:scale-[1.03]"
           />
         </a>
 
