@@ -106,6 +106,22 @@ export function Hero() {
 
           </div>
 
+          {/* Mobile: static robot image, blend removes black bg */}
+          {!isDesktop && (
+            <div className="relative w-full flex justify-center mt-4">
+              <img
+                src="/robot-mobile.png"
+                alt="Zyntria AI"
+                draggable={false}
+                className="w-full max-w-[320px] mix-blend-screen opacity-90 select-none"
+              />
+              <div
+                className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
+                style={{ background: 'linear-gradient(to top, #0A0F1E 30%, transparent)' }}
+              />
+            </div>
+          )}
+
           {/* RIGHT: Spline 3D — desktop only to avoid WebGL issues on mobile */}
           {isDesktop && (
             <div className="flex-1 relative h-[620px] w-full">
