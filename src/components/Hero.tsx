@@ -5,13 +5,9 @@ import { Spotlight } from './ui/spotlight'
 
 const Spline = lazy(() => import('@splinetool/react-spline'))
 
-function useIsDesktop() {
-  const [isDesktop] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 1024)
-  return isDesktop
-}
-
 export function Hero() {
-  const isDesktop = useIsDesktop()
+  const [splineReady, setSplineReady] = useState(false)
+
   return (
     <section className="relative w-full min-h-screen bg-navy-900 overflow-hidden flex items-center">
       {/* Spotlight beam */}
@@ -103,49 +99,36 @@ export function Hero() {
                 Ver Servicios
               </a>
             </motion.div>
-
           </div>
 
-          {/* Mobile: static robot image, blend removes black bg */}
-          {!isDesktop && (
-            <div className="relative w-full flex justify-center mt-4">
-              <img
-                src="/robot-mobile.png"
-                alt="Zyntria AI"
-                draggable={false}
-                className="w-full max-w-[320px] mix-blend-screen opacity-90 select-none"
+          {/* RIGHT: Spline 3D — overlay hides initial camera fly-in animation */}
+          <div className="flex-1 relative h-[360px] lg:h-[620px] w-full">
+            <Suspense
+              fallback={
+                <div className="w-full h-full flex items-center justify-center">
+                  <div className="w-10 h-10 border-2 border-electric border-t-transparent rounded-full animate-spin" />
+                </div>
+              }
+            >
+              <Spline
+                scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                className="w-full h-full"
+                onLoad={() => setTimeout(() => setSplineReady(true), 1400)}
               />
-              <div
-                className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
-                style={{ background: 'linear-gradient(to top, #0A0F1E 30%, transparent)' }}
-              />
-            </div>
-          )}
+            </Suspense>
 
-          {/* RIGHT: Spline 3D — desktop only to avoid WebGL issues on mobile */}
-          {isDesktop && (
-            <div className="flex-1 relative h-[620px] w-full">
-              <Suspense
-                fallback={
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="w-10 h-10 border-2 border-electric border-t-transparent rounded-full animate-spin" />
-                  </div>
-                }
-              >
-                <Spline
-                  scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-                  className="w-full h-full"
-                />
-              </Suspense>
-              {/* Bottom fade */}
-              <div
-                className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
-                style={{
-                  background: 'linear-gradient(to top, #0A0F1E, transparent)',
-                }}
-              />
-            </div>
-          )}
+            {/* Navy overlay that hides the camera zoom-out animation, fades out once robot is in position */}
+            <div
+              className="absolute inset-0 bg-navy-900 pointer-events-none transition-opacity duration-700"
+              style={{ opacity: splineReady ? 0 : 1 }}
+            />
+
+            {/* Bottom fade */}
+            <div
+              className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none z-10"
+              style={{ background: 'linear-gradient(to top, #0A0F1E, transparent)' }}
+            />
+          </div>
         </div>
       </div>
 
