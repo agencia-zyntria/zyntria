@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { ShieldCheck, Clock, Zap } from 'lucide-react'
 
@@ -8,6 +9,12 @@ const trust = [
 ]
 
 export function LeadCapture() {
+  useEffect(() => {
+    if (typeof window !== 'undefined' && (window as any).Tally) {
+      (window as any).Tally.loadEmbeds()
+    }
+  }, [])
+
   return (
     <section id="contacto" className="py-28 bg-navy-900 relative overflow-hidden">
       {/* Subtle grid */}
@@ -58,7 +65,7 @@ export function LeadCapture() {
           className="w-full rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden"
         >
           <iframe
-            src="https://tally.so/embed/NpbNJl?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+            data-tally-src="https://tally.so/embed/NpbNJl?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
             loading="lazy"
             width="100%"
             height={553}
