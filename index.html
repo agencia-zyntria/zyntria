@@ -1,17 +1,273 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Zyntria — Automatización con IA para empresas corporativas. Optimización de flujos, asistentes virtuales y chatbots avanzados." />
-    <title>Zyntria — Automatización con IA de Élite</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300&display=swap" rel="stylesheet" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zyntria · Automatización con IA para negocios en Zaragoza</title>
+  <meta name="description" content="Asistentes con IA que responden a tus clientes por WhatsApp y email, los apuntan en tu CRM y agendan citas. Lo montamos nosotros y lo pruebas 14 días gratis." />
+  <link rel="canonical" href="https://www.zyntriatech.es/" />
+  <meta name="theme-color" content="#050914" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:title" content="Zyntria · Tu negocio responde. Aunque esté cerrado." />
+  <meta property="og:description" content="Automatización con IA para negocios: WhatsApp, email, CRM y citas. Prueba gratis 14 días." />
+  <meta property="og:url" content="https://www.zyntriatech.es/" />
+  <meta property="og:image" content="https://www.zyntriatech.es/logo-full.png" />
+  <link rel="preload" href="/fonts/montserrat-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/inter-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <script>document.documentElement.classList.add('js')</script>
+  <link rel="stylesheet" href="/src/style.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"ProfessionalService","name":"Zyntria","url":"https://www.zyntriatech.es/","email":"zyntriateam@gmail.com","telephone":"+34654208056","areaServed":"Zaragoza, España","description":"Automatización con IA para negocios: asistentes de WhatsApp y email, CRM, agenda de citas y diseño web.","founder":[{"@type":"Person","name":"Yassine Kherrab"},{"@type":"Person","name":"Rubén Viñals"}]}
+  </script>
+</head>
+<body>
+  <!-- Iconos reutilizables -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
+      <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V21H3z"/><path d="M9 21v-6h6v6"/></symbol>
+      <symbol id="i-table" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></symbol>
+      <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></symbol>
+      <symbol id="i-web" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></symbol>
+    </defs>
+  </svg>
+
+  <header class="nav" id="nav">
+    <div class="wrap">
+      <a href="#inicio" class="brand" aria-label="Zyntria, inicio"><img src="/img/logo-mark.webp" alt="" width="40" height="40" />ZYNTRIA</a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#servicios">Servicios</a>
+        <a href="#demo">Demo</a>
+        <a href="#como-trabajamos">Cómo trabajamos</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#preguntas">Preguntas</a>
+      </nav>
+      <a class="btn btn-primary nav-cta" href="#contacto">Prueba gratis</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </header>
+
+  <main>
+    <!-- PORTADA -->
+    <section class="hero" id="inicio">
+      <div class="hero-bg"></div><div class="hero-grid"></div>
+      <div class="wrap">
+        <div>
+          <span class="eyebrow reveal-now">Automatización con IA · Zaragoza</span>
+          <h1 class="reveal-now d1">Tu negocio responde. <span class="grad">Aunque esté cerrado.</span></h1>
+          <p class="lead reveal-now d2">Asistentes con IA que contestan a tus clientes por WhatsApp y email, los apuntan en tu CRM y les agendan la cita. Lo montamos nosotros, a tu medida.</p>
+          <div class="hero-ctas reveal-now d3">
+            <a class="btn btn-primary" href="#contacto">Pruébalo 14 días gratis <svg><use href="#i-arrow"/></svg></a>
+            <a class="btn btn-ghost" href="#demo"><svg><use href="#i-play"/></svg> Ver demo real</a>
+          </div>
+          <div class="hero-notes reveal-now d3"><span>Sin compromiso</span><span>Lo instalamos nosotros</span><span>Tus datos, en tu cuenta</span></div>
+        </div>
+
+        <div class="hero-visual reveal-now d2" aria-hidden="true">
+          <svg class="flow" viewBox="0 0 600 480" role="img">
+            <defs>
+              <linearGradient id="wireGrad" x1="0" x2="1"><stop offset="0" stop-color="#7cb7ff" stop-opacity=".2"/><stop offset=".5" stop-color="#7cb7ff"/><stop offset="1" stop-color="#a78bfa" stop-opacity=".4"/></linearGradient>
+              <radialGradient id="coreGrad"><stop offset="0" stop-color="#1e3a8a"/><stop offset="1" stop-color="#0b1430"/></radialGradient>
+              <path id="w1" d="M172 97 C 222 97, 226 240, 242 240"/>
+              <path id="w2" d="M172 240 L 242 240"/>
+              <path id="w3" d="M172 383 C 222 383, 226 240, 242 240"/>
+              <path id="w4" d="M358 240 C 374 240, 378 97, 428 97"/>
+              <path id="w5" d="M358 240 L 428 240"/>
+              <path id="w6" d="M358 240 C 374 240, 378 383, 428 383"/>
+            </defs>
+            <g><use href="#w1" class="wire"/><use href="#w2" class="wire"/><use href="#w3" class="wire"/><use href="#w4" class="wire"/><use href="#w5" class="wire"/><use href="#w6" class="wire"/></g>
+            <g><use href="#w1" class="wire-live"/><use href="#w2" class="wire-live"/><use href="#w3" class="wire-live"/><use href="#w4" class="wire-live"/><use href="#w5" class="wire-live"/><use href="#w6" class="wire-live"/></g>
+
+            <!-- Puntos que viajan por las líneas -->
+            <circle r="5" fill="#25d366" class="pulse" color="#25d366"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0s"><mpath href="#w1"/></animateMotion></circle>
+            <circle r="5" fill="#7cb7ff" class="pulse" color="#7cb7ff"><animateMotion dur="2.4s" repeatCount="indefinite" begin=".8s"><mpath href="#w2"/></animateMotion></circle>
+            <circle r="5" fill="#a78bfa" class="pulse" color="#a78bfa"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.6s"><mpath href="#w3"/></animateMotion></circle>
+            <circle r="5" fill="#7cb7ff" class="pulse" color="#7cb7ff"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.2s"><mpath href="#w4"/></animateMotion></circle>
+            <circle r="5" fill="#7cb7ff" class="pulse" color="#7cb7ff"><animateMotion dur="2.4s" repeatCount="indefinite" begin="2s"><mpath href="#w5"/></animateMotion></circle>
+            <circle r="5" fill="#7cb7ff" class="pulse" color="#7cb7ff"><animateMotion dur="2.4s" repeatCount="indefinite" begin=".4s"><mpath href="#w6"/></animateMotion></circle>
+
+            <!-- Entradas -->
+            <g class="node"><rect x="20" y="70" width="152" height="54" rx="14"/><g color="#25d366"><svg x="34" y="85" width="24" height="24"><use href="#i-chat"/></svg></g><text x="68" y="94">WhatsApp</text><text x="68" y="110" class="sub">Mensaje nuevo</text></g>
+            <g class="node"><rect x="20" y="213" width="152" height="54" rx="14"/><g color="#7cb7ff"><svg x="34" y="228" width="24" height="24"><use href="#i-mail"/></svg></g><text x="68" y="237">Email</text><text x="68" y="253" class="sub">Consulta recibida</text></g>
+            <g class="node"><rect x="20" y="356" width="152" height="54" rx="14"/><g color="#a78bfa"><svg x="34" y="371" width="24" height="24"><use href="#i-home"/></svg></g><text x="68" y="380">Portales</text><text x="68" y="396" class="sub">Lead de Idealista</text></g>
+
+            <!-- Núcleo -->
+            <circle cx="300" cy="240" r="58" class="core-ring"/><circle cx="300" cy="240" r="58" class="core-ring r2"/>
+            <circle cx="300" cy="240" r="58" fill="url(#coreGrad)" stroke="rgba(124,183,255,.55)" stroke-width="1.5"/>
+            <image href="/img/logo-mark.webp" x="268" y="208" width="64" height="64"/>
+            <text x="300" y="322" text-anchor="middle" fill="#9aa7c2" font-family="Inter, sans-serif" font-weight="700" font-size="11" letter-spacing="2">ASISTENTE IA</text>
+
+            <!-- Salidas -->
+            <g class="node"><rect x="428" y="70" width="152" height="54" rx="14"/><g color="#7cb7ff"><svg x="442" y="85" width="24" height="24"><use href="#i-table"/></svg></g><text x="476" y="94">CRM</text><text x="476" y="110" class="sub">Contacto guardado</text></g>
+            <g class="node"><rect x="428" y="213" width="152" height="54" rx="14"/><g color="#7cb7ff"><svg x="442" y="228" width="24" height="24"><use href="#i-cal"/></svg></g><text x="476" y="237">Calendario</text><text x="476" y="253" class="sub">Cita reservada</text></g>
+            <g class="node"><rect x="428" y="356" width="152" height="54" rx="14"/><g color="#ffc247"><svg x="442" y="371" width="24" height="24"><use href="#i-bell"/></svg></g><text x="476" y="380">Aviso</text><text x="476" y="396" class="sub">Email al agente</text></g>
+
+            <!-- Tarjetas que aparecen -->
+            <g class="toast"><rect x="196" y="126" width="208" height="40" rx="20" fill="#0f1c3d" stroke="rgba(37,211,102,.5)"/><circle cx="218" cy="146" r="5" fill="#25d366"/><text x="232" y="150" fill="#eef2fb" font-family="Inter, sans-serif" font-weight="700" font-size="12">Respondido en segundos</text></g>
+            <g class="tick"><rect x="206" y="340" width="188" height="40" rx="20" fill="#0f1c3d" stroke="rgba(124,183,255,.45)"/><text x="300" y="365" text-anchor="middle" fill="#eef2fb" font-family="Inter, sans-serif" font-weight="700" font-size="12">✓ Cita agendada · 23:43</text></g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTORES -->
+    <p class="marquee-label">Para negocios que reciben clientes cada día</p>
+    <div class="marquee" aria-label="Sectores">
+      <div class="marquee-track">
+        <span>Inmobiliarias</span><span>Clínicas</span><span>Academias</span><span>Talleres</span><span>Gimnasios</span><span>Despachos</span><span>Estética</span><span>Tiendas</span>
+        <span aria-hidden="true">Inmobiliarias</span><span aria-hidden="true">Clínicas</span><span aria-hidden="true">Academias</span><span aria-hidden="true">Talleres</span><span aria-hidden="true">Gimnasios</span><span aria-hidden="true">Despachos</span><span aria-hidden="true">Estética</span><span aria-hidden="true">Tiendas</span>
+      </div>
+    </div>
+
+    <!-- SERVICIOS -->
+    <section class="section" id="servicios">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">Qué hacemos</span>
+          <h2>Automatizamos lo repetitivo. <span class="grad">Tú atiendes lo importante.</span></h2>
+          <p>Cada servicio funciona por separado o junto a los demás. Empezamos por lo que más tiempo te quita.</p>
+        </div>
+        <div class="services">
+          <article class="service reveal"><span class="num">01</span><div class="ico"><svg><use href="#i-chat"/></svg></div><h3>Asistente de WhatsApp con IA</h3><p>Contesta al momento, a cualquier hora, con la información de tu negocio. Si hace falta una persona, te avisa.</p></article>
+          <article class="service reveal d1"><span class="num">02</span><div class="ico"><svg><use href="#i-mail"/></svg></div><h3>Emails y portales</h3><p>Responde los emails de clientes y los contactos que llegan de portales como Idealista o Fotocasa.</p></article>
+          <article class="service reveal d2"><span class="num">03</span><div class="ico"><svg><use href="#i-table"/></svg></div><h3>CRM automático</h3><p>Cada contacto queda apuntado: quién es, qué busca y en qué punto está. Sin copiar y pegar.</p></article>
+          <article class="service reveal"><span class="num">04</span><div class="ico"><svg><use href="#i-cal"/></svg></div><h3>Agenda de citas</h3><p>El cliente elige día y hora desde un enlace y la cita aparece directamente en tu calendario.</p></article>
+          <article class="service reveal d1"><span class="num">05</span><div class="ico"><svg><use href="#i-bell"/></svg></div><h3>Avisos a tu equipo</h3><p>Te llega un aviso cuando un cliente pide cita, tiene prisa o necesita hablar con alguien.</p></article>
+          <article class="service reveal d2"><span class="num">06</span><div class="ico"><svg><use href="#i-web"/></svg></div><h3>Diseño web</h3><p>Webs rápidas y claras para tu negocio, conectadas con tus automatizaciones desde el primer día.</p></article>
+        </div>
+        <p class="services-note reveal">¿Tienes otra tarea que repites cada día? <a href="#contacto">Cuéntanosla</a> y te decimos con sinceridad si se puede automatizar.</p>
+      </div>
+    </section>
+
+    <!-- DEMO -->
+    <section class="section demo" id="demo">
+      <div class="wrap">
+        <div class="reveal">
+          <span class="eyebrow">Demo real</span>
+          <div class="section-head" style="margin-bottom:0">
+            <h2>Grabado de verdad, <span class="grad">a las 23:42.</span></h2>
+            <p>Una inmobiliaria cerrada. Un cliente escribe por WhatsApp para vender su piso. Esto es lo que pasa:</p>
+          </div>
+          <ol class="demo-list">
+            <li><span class="t">1</span><div><b>Respuesta en segundos</b><span>El asistente se presenta, entiende qué necesita y le hace las preguntas justas.</span></div></li>
+            <li><span class="t">2</span><div><b>Ofrece el siguiente paso</b><span>En este caso, una valoración gratuita con enlace para elegir día y hora.</span></div></li>
+            <li><span class="t">3</span><div><b>Todo queda apuntado</b><span>El contacto entra en el CRM y el agente recibe un aviso para la mañana siguiente.</span></div></li>
+          </ol>
+        </div>
+        <div class="phone reveal d1">
+          <span class="phone-tag">● Grabación real</span>
+          <video controls preload="none" playsinline poster="/video/demo-poster.webp" width="540" height="960">
+            <source src="/video/demo-whatsapp.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <!-- CÓMO TRABAJAMOS -->
+    <section class="section" id="como-trabajamos">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">Cómo trabajamos</span>
+          <h2>Tres pasos. <span class="grad">Ninguno técnico para ti.</span></h2>
+        </div>
+        <div class="steps">
+          <div class="step reveal"><div class="big">01</div><h3>Escuchamos</h3><p>Una llamada o una visita: cómo te llegan los clientes, qué preguntas se repiten y qué te quita más tiempo.</p></div>
+          <div class="step reveal d1"><div class="big">02</div><h3>Lo montamos a tu medida</h3><p>Configuramos el asistente con tu información, tus horarios y tu forma de hablar. Tú no tocas nada técnico.</p></div>
+          <div class="step reveal d2"><div class="big">03</div><h3>Lo pruebas 14 días gratis</h3><p>Lo ves funcionar con tus clientes reales. Si no te convence, lo desactivamos y borramos los datos.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRUEBA GRATIS -->
+    <section class="section" id="prueba" style="padding-top:0">
+      <div class="wrap">
+        <div class="trial reveal">
+          <div>
+            <span class="eyebrow">Prueba gratuita</span>
+            <h2 style="margin-top:18px">14 días para verlo con <span class="grad">tus propios clientes.</span></h2>
+            <p class="lead">Empezamos con lo básico para que compruebes el resultado sin riesgo. Si quieres más, te preparamos un plan a medida.</p>
+          </div>
+          <div>
+            <ul class="checks">
+              <li>Asistente con IA en un canal: WhatsApp o email</li>
+              <li>Cada contacto guardado en tu CRM</li>
+              <li>Avisos a tu equipo cuando hace falta una persona</li>
+              <li>Instalación y configuración incluidas</li>
+              <li>Sin compromiso y sin cobros automáticos</li>
+            </ul>
+            <p class="small">Firmamos un acuerdo de protección de datos (RGPD) antes de empezar.</p>
+            <div class="hero-ctas" style="margin-top:26px"><a class="btn btn-primary" href="#contacto">Quiero probarlo <svg><use href="#i-arrow"/></svg></a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOSOTROS -->
+    <section class="section" id="nosotros" style="padding-top:20px">
+      <div class="wrap team">
+        <div class="person reveal"><figure><img src="/img/yassine-kherrab.webp" alt="Yassine Kherrab" width="460" height="640" loading="lazy" /></figure><h3>Yassine Kherrab</h3><p>Estrategia, automatizaciones y diseño web</p></div>
+        <div class="person reveal d1"><figure><img src="/img/ruben-vinals.webp" alt="Rubén Viñals" width="460" height="640" loading="lazy" /></figure><h3>Rubén Viñals</h3><p>Geógrafo · Datos, SIG y automatizaciones</p></div>
+        <div class="team-text reveal d2">
+          <span class="eyebrow">Quiénes somos</span>
+          <h2>Dos personas. <span class="grad">De Zaragoza.</span></h2>
+          <p>Hablas directamente con quien monta tu sistema, sin intermediarios. Nos gusta explicar las cosas claras: qué se puede automatizar, qué no y cuánto cuesta.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PREGUNTAS -->
+    <section class="section" id="preguntas" style="padding-top:40px">
+      <div class="wrap">
+        <div class="section-head reveal"><span class="eyebrow">Preguntas frecuentes</span><h2>Lo que nos suelen preguntar</h2></div>
+        <div class="faq reveal">
+          <details><summary>¿Y si la IA responde algo que no debe?</summary><p>Solo usa la información de tu negocio que nos das. Cuando no sabe algo, o el cliente pide hablar con una persona, no se lo inventa: te avisa para que contestes tú.</p></details>
+          <details><summary>¿Tengo que saber de tecnología?</summary><p>No. Lo instalamos y configuramos nosotros y te enseñamos a usarlo en una sesión corta. Tú sigues trabajando como siempre.</p></details>
+          <details><summary>¿Mis clientes sabrán que hablan con una IA?</summary><p>Sí. El asistente se presenta como asistente virtual de tu negocio. Es lo honesto con tus clientes y lo que exige la normativa.</p></details>
+          <details><summary>¿Qué pasa con los datos de mis clientes?</summary><p>Firmamos contigo un contrato de encargo de tratamiento según el RGPD. El CRM queda en tu propia cuenta y los datos solo se usan para atender a tus clientes.</p></details>
+          <details><summary>¿Funciona con mi número de WhatsApp?</summary><p>Sí, conectando tu número de WhatsApp Business a la plataforma oficial de Meta. Te ayudamos con todo el proceso.</p></details>
+          <details><summary>¿Qué pasa cuando acaba la prueba?</summary><p>Decides tú. Si quieres seguir, te proponemos un plan según lo que necesites. Si no, lo desactivamos y borramos los datos. No hay cobros automáticos.</p></details>
+          <details><summary>¿Cuánto cuesta?</summary><p>Depende de los canales y funciones que necesites. Después de la primera llamada te damos un precio cerrado, sin sorpresas.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section class="section contact" id="contacto">
+      <div class="wrap reveal">
+        <span class="eyebrow">Contacto</span>
+        <h2 style="margin-top:20px">¿Hablamos?</h2>
+        <p>No hace falta que lo tengas claro. Cuéntanos cómo te llegan los clientes y te decimos qué se puede automatizar.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-wa" href="https://wa.me/34654208056?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20la%20prueba%20gratis%20de%20Zyntria" target="_blank" rel="noopener"><svg><use href="#i-chat"/></svg> Escríbenos por WhatsApp</a>
+          <a class="btn btn-ghost" href="mailto:zyntriateam@gmail.com?subject=Prueba%20gratis%20Zyntria"><svg><use href="#i-mail"/></svg> zyntriateam@gmail.com</a>
+          <a class="btn btn-ghost" href="https://tally.so/r/NpbNJl" target="_blank" rel="noopener">Rellenar formulario <svg><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div>
+          <a href="#inicio" class="brand"><img src="/img/logo-mark.webp" alt="" width="40" height="40" loading="lazy" />ZYNTRIA</a>
+          <p>Automatización con IA para negocios.<br />Zaragoza, España.</p>
+        </div>
+        <div><h4>Web</h4><ul><li><a href="#servicios">Servicios</a></li><li><a href="#demo">Demo</a></li><li><a href="#nosotros">Nosotros</a></li><li><a href="#preguntas">Preguntas</a></li></ul></div>
+        <div><h4>Contacto</h4><ul><li><a href="https://wa.me/34654208056" target="_blank" rel="noopener">WhatsApp: 654 208 056</a></li><li><a href="mailto:zyntriateam@gmail.com">zyntriateam@gmail.com</a></li></ul></div>
+      </div>
+      <div class="legal"><span>© <span id="year">2026</span> Zyntria</span><nav><a href="/aviso-legal.html">Aviso legal</a><a href="/privacidad.html">Privacidad</a><a href="/cookies.html">Cookies</a></nav></div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/34654208056?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Zyntria" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><svg color="#05220f"><use href="#i-chat"/></svg></a>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
 </html>
