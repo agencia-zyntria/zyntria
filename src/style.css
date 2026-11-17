@@ -68,28 +68,50 @@ p { margin: 0; }
   .nav.open .nav-links a { padding: 14px 0; border-bottom: 1px solid var(--line); color: var(--text); }
 }
 
-/* ---------- Portada ---------- */
-.hero { position: relative; min-height: 100svh; display: flex; align-items: center; padding: 120px 0 80px; overflow: hidden; }
-.hero-bg { position: absolute; inset: 0; pointer-events: none;
-  background:
-    radial-gradient(60% 50% at 75% 40%, rgba(59, 130, 246, .22), transparent 70%),
-    radial-gradient(40% 40% at 10% 90%, rgba(139, 92, 246, .16), transparent 70%); }
-.hero-grid { position: absolute; inset: 0; pointer-events: none; opacity: .35;
-  background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
-  background-size: 64px 64px; mask-image: radial-gradient(ellipse at 60% 40%, #000 30%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse at 60% 40%, #000 30%, transparent 75%); }
-.hero .wrap { position: relative; display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; }
-.hero h1 { font-size: clamp(44px, 6.4vw, 86px); font-weight: 900; margin: 22px 0 24px; }
-.hero .lead { font-size: clamp(18px, 1.6vw, 21px); color: var(--muted); max-width: 560px; }
+/* ---------- Intro (logo que se revela al entrar) ---------- */
+.intro { display: none; }
+.intro-on .intro { display: grid; position: fixed; inset: 0; z-index: 100; place-items: center; background: var(--bg); animation: introOut .6s cubic-bezier(.7,0,.3,1) 1.05s forwards; }
+.intro-inner { display: flex; align-items: center; gap: 18px; }
+.intro img { width: 72px; height: 72px; animation: introLogo .9s cubic-bezier(.2,.8,.2,1) both; }
+.intro span { font: 900 clamp(30px, 6vw, 54px)/1 var(--h); letter-spacing: .3em; color: var(--text); animation: introText 1s cubic-bezier(.2,.8,.2,1) .15s both; }
+@keyframes introLogo { from { opacity: 0; transform: scale(.6) rotate(-20deg); filter: blur(8px); } }
+@keyframes introText { from { opacity: 0; letter-spacing: .9em; filter: blur(10px); } }
+html.intro-on .hero .reveal-now { animation-delay: 1.15s; } html.intro-on .hero .reveal-now.d1 { animation-delay: 1.25s; } html.intro-on .hero .reveal-now.d2 { animation-delay: 1.35s; } html.intro-on .hero .reveal-now.d3 { animation-delay: 1.45s; }
+@keyframes introOut { to { clip-path: inset(0 0 100% 0); visibility: hidden; } }
+
+/* ---------- Portada con vídeo a pantalla completa ---------- */
+.hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; padding: 130px 0 90px; overflow: hidden; background: #050914 url('/video/hero-desktop.webp') center / cover no-repeat; }
+.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero-shade { position: absolute; inset: 0; background:
+  linear-gradient(180deg, rgba(5,9,20,.55) 0%, rgba(5,9,20,.15) 35%, rgba(5,9,20,.55) 65%, rgba(5,9,20,.96) 100%),
+  linear-gradient(90deg, rgba(5,9,20,.75) 0%, rgba(5,9,20,.1) 70%); }
+.hero-content { position: relative; }
+.hero h1 { font-size: clamp(46px, 7.4vw, 108px); font-weight: 900; margin: 22px 0 24px; max-width: 1000px; text-shadow: 0 10px 50px rgba(0,0,0,.45); }
+.hero .lead { font-size: clamp(18px, 1.6vw, 21px); color: #c9d3ea; max-width: 600px; }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
-.hero-notes { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 28px; color: var(--muted); font-size: 14px; }
+.hero .btn-ghost { background: rgba(5, 9, 20, .45); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-color: rgba(255,255,255,.2); }
+.hero-notes { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 28px; color: #c9d3ea; font-size: 14px; }
 .hero-notes span { display: inline-flex; align-items: center; gap: 8px; }
 .hero-notes span::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); }
+.rotator { display: inline-grid; color: #fff; overflow: hidden; height: 1.2em; vertical-align: bottom; }
+.rotator span { grid-area: 1 / 1; animation: wordIn .55s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes wordIn { from { transform: translateY(110%); opacity: 0; } }
+.scroll-hint { position: absolute; left: 50%; bottom: 26px; width: 26px; height: 42px; margin-left: -13px; border: 2px solid rgba(255,255,255,.35); border-radius: 14px; }
+.scroll-hint span { position: absolute; left: 50%; top: 8px; width: 4px; height: 8px; margin-left: -2px; border-radius: 2px; background: #fff; animation: wheel 1.6s ease-in-out infinite; }
+@keyframes wheel { 0% { opacity: 0; transform: translateY(0); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(14px); } }
+@media (max-width: 900px) { .hero { padding-bottom: 80px; background-image: url('/video/hero-mobile.webp'); } .scroll-hint { display: none; } }
+
+/* ---------- Palabras grandes que se rellenan al bajar (estilo editorial) ---------- */
+.words { padding: clamp(60px, 9vw, 120px) 0 0; }
+.words .w { margin: 0; font: 900 clamp(48px, 11vw, 150px)/0.95 var(--h); letter-spacing: -0.03em; text-transform: uppercase; color: transparent; -webkit-text-stroke: 1.5px rgba(124, 183, 255, .28); transition: color .6s, -webkit-text-stroke-color .6s; }
+.words .w.r { text-align: right; }
+.words .w.on { color: var(--text); -webkit-text-stroke-color: transparent; }
+.words .w.on:nth-child(2n) { color: var(--blue-2); }
+
+/* ---------- Así funciona por dentro ---------- */
+.inside-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 50px; align-items: center; }
+@media (max-width: 900px) { .inside-grid { grid-template-columns: 1fr; } }
 .flow { width: 100%; height: auto; overflow: visible; }
-@media (max-width: 900px) {
-  .hero { padding-top: 110px; }
-  .hero .wrap { grid-template-columns: 1fr; }
-  .hero-visual { order: 2; margin-top: 10px; }
-}
 
 /* Animación del diagrama (SVG + CSS, sin vídeo) */
 .flow .wire { fill: none; stroke: rgba(124, 183, 255, .22); stroke-width: 1.5; }
@@ -234,3 +256,7 @@ footer { border-top: 1px solid var(--line); padding: 60px 0 40px; color: var(--m
   .js .reveal { opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
 }
+
+/* Portada: la palabra que cambia baja de línea en móvil sin descolocarse */
+.hero .eyebrow { flex-wrap: wrap; row-gap: 8px; }
+@media (max-width: 600px) { .hero .eyebrow::before { display: none; } .hero .eyebrow { font-size: 11px; } }

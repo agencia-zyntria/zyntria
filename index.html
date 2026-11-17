@@ -16,7 +16,7 @@
   <meta property="og:image" content="https://www.zyntriatech.es/logo-full.png" />
   <link rel="preload" href="/fonts/montserrat-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/inter-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin />
-  <script>document.documentElement.classList.add('js')</script>
+  <script>(function(d){d.classList.add('js');try{if(!sessionStorage.getItem('zyIntro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('intro-on');sessionStorage.setItem('zyIntro','1')}}catch(e){}})(document.documentElement)</script>
   <link rel="stylesheet" href="/src/style.css" />
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"ProfessionalService","name":"Zyntria","url":"https://www.zyntriatech.es/","email":"zyntriateam@gmail.com","telephone":"+34654208056","areaServed":"Zaragoza, España","description":"Automatización con IA para negocios: asistentes de WhatsApp y email, CRM, agenda de citas y diseño web.","founder":[{"@type":"Person","name":"Yassine Kherrab"},{"@type":"Person","name":"Rubén Viñals"}]}
@@ -54,22 +54,50 @@
   </header>
 
   <main>
+    <!-- INTRO (solo la primera visita, dura ~1,4 s) -->
+    <div class="intro" id="intro" aria-hidden="true"><div class="intro-inner"><img src="/img/logo-mark.webp" alt="" width="96" height="96" /><span>ZYNTRIA</span></div></div>
+
     <!-- PORTADA -->
     <section class="hero" id="inicio">
-      <div class="hero-bg"></div><div class="hero-grid"></div>
-      <div class="wrap">
-        <div>
-          <span class="eyebrow reveal-now">Automatización con IA · Zaragoza</span>
-          <h1 class="reveal-now d1">Tu negocio responde. <span class="grad">Aunque esté cerrado.</span></h1>
-          <p class="lead reveal-now d2">Asistentes con IA que contestan a tus clientes por WhatsApp y email, los apuntan en tu CRM y les agendan la cita. Lo montamos nosotros, a tu medida.</p>
-          <div class="hero-ctas reveal-now d3">
-            <a class="btn btn-primary" href="#contacto">Pruébalo 14 días gratis <svg><use href="#i-arrow"/></svg></a>
-            <a class="btn btn-ghost" href="#demo"><svg><use href="#i-play"/></svg> Ver demo real</a>
-          </div>
-          <div class="hero-notes reveal-now d3"><span>Sin compromiso</span><span>Lo instalamos nosotros</span><span>Tus datos, en tu cuenta</span></div>
+      <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="none" poster="/video/hero-desktop.webp" data-desktop="/video/hero-desktop.mp4" data-mobile="/video/hero-mobile.mp4" data-poster-mobile="/video/hero-mobile.webp" aria-hidden="true"></video>
+      <div class="hero-shade"></div>
+      <div class="wrap hero-content">
+        <span class="eyebrow reveal-now">Automatización con IA para <span class="rotator" id="rotator"><span>inmobiliarias</span></span></span>
+        <h1 class="reveal-now d1">Tu negocio responde. <span class="grad">Aunque esté cerrado.</span></h1>
+        <p class="lead reveal-now d2">Asistentes con IA que contestan a tus clientes por WhatsApp y email, los apuntan en tu CRM y les agendan la cita. Lo montamos nosotros, a tu medida.</p>
+        <div class="hero-ctas reveal-now d3">
+          <a class="btn btn-primary" href="#contacto">Pruébalo 14 días gratis <svg><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-ghost" href="#demo"><svg><use href="#i-play"/></svg> Ver demo real</a>
         </div>
+        <div class="hero-notes reveal-now d3"><span>Sin compromiso</span><span>Lo instalamos nosotros</span><span>Tus datos, en tu cuenta</span></div>
+      </div>
+      <a class="scroll-hint" href="#servicios" aria-label="Bajar"><span></span></a>
+    </section>
 
-        <div class="hero-visual reveal-now d2" aria-hidden="true">
+    <p class="marquee-label">Para negocios que reciben clientes cada día</p>
+    <div class="marquee" aria-label="Sectores">
+      <div class="marquee-track">
+        <span>Inmobiliarias</span><span>Clínicas</span><span>Academias</span><span>Talleres</span><span>Gimnasios</span><span>Despachos</span><span>Estética</span><span>Tiendas</span>
+        <span aria-hidden="true">Inmobiliarias</span><span aria-hidden="true">Clínicas</span><span aria-hidden="true">Academias</span><span aria-hidden="true">Talleres</span><span aria-hidden="true">Gimnasios</span><span aria-hidden="true">Despachos</span><span aria-hidden="true">Estética</span><span aria-hidden="true">Tiendas</span>
+      </div>
+    </div>
+
+    <!-- QUÉ AUTOMATIZAMOS: palabras grandes que se rellenan al bajar -->
+    <section class="words" aria-label="Qué automatizamos">
+      <div class="wrap">
+        <p class="w">WhatsApp</p><p class="w r">Emails</p><p class="w">CRM</p><p class="w r">Citas</p><p class="w">Avisos</p><p class="w r">Webs</p>
+      </div>
+    </section>
+
+    <!-- ASÍ FUNCIONA POR DENTRO -->
+    <section class="section inside" id="como-funciona">
+      <div class="wrap inside-grid">
+        <div class="reveal">
+          <span class="eyebrow">Así funciona por dentro</span>
+          <div class="section-head" style="margin-bottom:0"><h2>Un mensaje entra. <span class="grad">Todo lo demás ocurre solo.</span></h2>
+          <p>El asistente responde, guarda el contacto en tu CRM, reserva la cita y avisa a tu equipo. Tú solo apareces cuando hace falta una persona.</p></div>
+        </div>
+        <div class="reveal d1" aria-hidden="true">
           <svg class="flow" viewBox="0 0 600 480" role="img">
             <defs>
               <linearGradient id="wireGrad" x1="0" x2="1"><stop offset="0" stop-color="#7cb7ff" stop-opacity=".2"/><stop offset=".5" stop-color="#7cb7ff"/><stop offset="1" stop-color="#a78bfa" stop-opacity=".4"/></linearGradient>
@@ -115,15 +143,6 @@
         </div>
       </div>
     </section>
-
-    <!-- SECTORES -->
-    <p class="marquee-label">Para negocios que reciben clientes cada día</p>
-    <div class="marquee" aria-label="Sectores">
-      <div class="marquee-track">
-        <span>Inmobiliarias</span><span>Clínicas</span><span>Academias</span><span>Talleres</span><span>Gimnasios</span><span>Despachos</span><span>Estética</span><span>Tiendas</span>
-        <span aria-hidden="true">Inmobiliarias</span><span aria-hidden="true">Clínicas</span><span aria-hidden="true">Academias</span><span aria-hidden="true">Talleres</span><span aria-hidden="true">Gimnasios</span><span aria-hidden="true">Despachos</span><span aria-hidden="true">Estética</span><span aria-hidden="true">Tiendas</span>
-      </div>
-    </div>
 
     <!-- SERVICIOS -->
     <section class="section" id="servicios">
